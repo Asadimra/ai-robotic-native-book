@@ -19,10 +19,10 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create the project directory structure as defined in `plan.md` (`src/`, `scripts/`, `assets/`, `templates/`).
-- [ ] T002 [P] Create a template for chapters in `templates/chapter-template.md` based on `data-model.md`.
-- [ ] T003 [P] Create build script `scripts/build-pdf.sh` for generating the PDF version of the textbook using Pandoc.
-- [ ] T004 [P] Create build script `scripts/build-web.sh` for generating the web version of the textbook.
+- [X] T001 Create the project directory structure as defined in `plan.md` (`src/`, `scripts/`, `assets/`, `templates/`).
+- [X] T002 [P] Create a template for chapters in `templates/chapter-template.md` based on `data-model.md`.
+- [X] T003 [P] Create build script `scripts/build-pdf.sh` for generating the PDF version of the textbook using Pandoc.
+- [X] T004 [P] Create build script `scripts/build-web.sh` for generating the web version of the textbook.
 
 ---
 
@@ -34,9 +34,9 @@
 
 ### Implementation for User Story 1
 
-- [ ] T005 [US1] Draft the content for Chapter 1 of Unit 1 in `src/unit1/chapter1.md`.
-- [ ] T006 [P] [US1] Create or source diagrams and images for Chapter 1 and add them to `assets/images/`.
-- [ ] T007 [US1] Format the content of `src/unit1/chapter1.md` using the `templates/chapter-template.md`.
+- [X] T005 [US1] Draft the content for Chapter 1 of Unit 1 in `src/unit1/chapter1.md`.
+- [X] T006 [P] [US1] Create or source diagrams and images for Chapter 1 and add them to `assets/images/`.
+- [X] T007 [US1] Format the content of `src/unit1/chapter1.md` using the `templates/chapter-template.md`.
 
 ---
 
