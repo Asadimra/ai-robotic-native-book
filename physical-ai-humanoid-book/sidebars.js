@@ -36,7 +36,7 @@ const sidebars = {
             slug: '/category/chapter-1-1-foundations',
           },
           items: [
-            'unit1/chapter1.1/lesson1.1.1',
+            'unit1/chapter1.1/lesson1-1-1',
             'unit1/chapter1.1/lesson1.1.2',
           ],
         },
