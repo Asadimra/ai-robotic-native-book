@@ -31,7 +31,12 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] **Purpose and Scope**: Does the feature align with the project's purpose and scope?
+- [ ] **Quality Standards for Content**: Does the feature meet the quality standards for content?
+- [ ] **Structural and Formatting Consistency**: Does the feature maintain structural and formatting consistency?
+- [ ] **Chapter Completeness**: Does the feature contribute to chapter completeness?
+- [ ] **Roles and Responsibilities**: Are roles and responsibilities clear for this feature?
+- [ ] **Development Workflow**: Does the feature development follow the established workflow?
 
 ## Project Structure
 

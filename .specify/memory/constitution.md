@@ -1,55 +1,49 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+- Version change: 0.0.0 → 1.0.0
+- List of modified principles:
+  - [PRINCIPLE_1_NAME] → I. Purpose and Scope
+  - [PRINCIPLE_2_NAME] → II. Quality Standards for Content
+  - [PRINCIPLE_3_NAME] → III. Structural and Formatting Consistency
+  - [PRINCIPLE_4_NAME] → IV. Chapter Completeness
+  - [PRINCIPLE_5_NAME] → V. Roles and Responsibilities
+- Added sections: VI. Development Workflow, Publishing and Distribution, Amendment and Governance
+- Removed sections: None
+- Templates requiring updates:
+  - ✅ .specify/templates/plan-template.md
+  - ✅ .specify/templates/spec-template.md
+  - ✅ .specify/templates/tasks-template.md
+- Follow-up TODOs: None
+-->
+# Physical AI & Humanoid Robotics Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Purpose and Scope
+The purpose of this project is to produce a simple AI-native textbook titled “Physical AI & Humanoid Robotics.” The textbook will cover fundamental concepts in a manner suitable for undergraduate students, with content structured into units, chapters, and lessons. The scope is strictly limited to standard textbook features, including a table of contents, chapter pages with learning objectives, clear explanations, illustrative diagrams, and optional self-assessment quizzes. No advanced application features, user authentication, or complex AI-driven systems are in scope.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Quality Standards for Content
+All content must be written in clean, simple, and professional language to ensure clarity and readability. Accuracy is paramount, and all technical explanations must be correct and presented without ambiguity. The writing style must maintain academic professionalism, providing a reliable and authoritative educational resource.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Structural and Formatting Consistency
+The textbook must be well-structured and visually organized to provide a seamless user experience. All chapters and sections must follow a consistent formatting and layout standard, ensuring uniformity across the entire book. This standard applies to headings, text, diagrams, and quizzes to make the content easily navigable on both web and PDF formats.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Chapter Completeness
+Each chapter shall be considered complete only when it includes all required elements: clearly defined learning objectives, comprehensive explanations and examples, and any necessary diagrams. Where applicable, a short quiz for self-assessment should be included. No chapter may be finalized until these criteria are met.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Roles and Responsibilities
+The project will follow a clear separation of roles. The Author is responsible for drafting all content, including text, diagrams, and quizzes, ensuring it aligns with the quality and completeness standards. The Reviewer is responsible for revising the drafted content for clarity, accuracy, and formatting, providing feedback to the author for refinement.
 
-### [PRINCIPLE_6_NAME]
+### VI. Development Workflow
+A structured workflow will govern content creation. The process is as follows: Draft, Revise, and Finalize. The Author submits a draft, the Reviewer provides feedback, the Author incorporates the revisions, and both parties must approve the final version before it is published. This iterative process ensures all content meets the project’s standards.
 
+## Publishing and Distribution
+The final textbook will be produced in formats readable on the web and as a downloadable PDF. The content must be organized to support a clear table of contents for easy navigation. The primary goal is to deliver a well-organized, self-contained digital book.
 
-[PRINCIPLE__DESCRIPTION]
-
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Amendment and Governance
+This constitution governs all work on the project. Any amendments must be proposed, reviewed, and agreed upon by all team members before taking effect. The constitution ensures that the project remains focused on its core objectives and maintains high standards throughout its lifecycle.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+All project decisions and content contributions must align with the principles outlined in this constitution. Any deviation must be justified and approved. This document serves as the single source of truth for project standards, scope, and procedures.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-12-07 | **Last Amended**: 2025-12-07
