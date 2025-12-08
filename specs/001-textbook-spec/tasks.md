@@ -1,7 +1,7 @@
-# Tasks: AI-Native Textbook
+# Tasks: Docusaurus Homepage
 
-**Input**: Design documents from `specs/001-textbook-spec/`
-**Prerequisites**: plan.md, spec.md, data-model.md
+**Input**: Design context from user prompt.
+**Prerequisites**: Existing Docusaurus project structure.
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -15,72 +15,113 @@
 
 ---
 
-## Phase 1: Setup (Shared Infrastructure)
+## Phase 1: Foundational Setup
 
-**Purpose**: Project initialization and basic structure
+**Purpose**: Prepare the homepage and create a directory for its components.
 
-- [X] T001 Create the project directory structure as defined in `plan.md` (`src/`, `scripts/`, `assets/`, `templates/`).
-- [X] T002 [P] Create a template for chapters in `templates/chapter-template.md` based on `data-model.md`.
-- [X] T003 [P] Create build script `scripts/build-pdf.sh` for generating the PDF version of the textbook using Pandoc.
-- [X] T004 [P] Create build script `scripts/build-web.sh` for generating the web version of the textbook.
+- [x] T001 Create a new directory for homepage components at `physical-ai-humanoid-book/src/components/Homepage`.
+- [x] T002 Refactor `physical-ai-humanoid-book/src/pages/index.js` to be a clean container for homepage section components.
 
 ---
 
-## Phase 2: User Story 1 - Author Creates a New Chapter (Priority: P1) 🎯 MVP
+## Phase 2: User Story 1 - Hero Section (Priority: P1) 🎯 MVP
 
-**Goal**: An author can create a new chapter with all required content and formatting.
+**Goal**: A compelling hero section that grabs the visitor's attention.
 
-**Independent Test**: A new chapter can be created and it validates against the structure defined in `data-model.md`.
+**Independent Test**: The hero section renders correctly on the homepage with a title, subtitle, and a primary call-to-action button.
 
 ### Implementation for User Story 1
 
-- [X] T005 [US1] Draft the content for Chapter 1 of Unit 1 in `src/unit1/chapter1.md`.
-- [X] T006 [P] [US1] Create or source diagrams and images for Chapter 1 and add them to `assets/images/`.
-- [X] T007 [US1] Format the content of `src/unit1/chapter1.md` using the `templates/chapter-template.md`.
+- [x] T003 [US1] Create the Hero component file at `physical-ai-humanoid-book/src/components/Homepage/Hero.js`.
+- [x] T004 [US1] Implement the Hero section UI in `Hero.js` with a title, subtitle, and a primary CTA button.
+- [x] T005 [P] [US1] Create a CSS module for the Hero component at `physical-ai-humanoid-book/src/components/Homepage/Hero.module.css` and add initial styling.
+- [x] T006 [US1] Integrate the `Hero` component into `physical-ai-humanoid-book/src/pages/index.js`.
 
 ---
 
-## Phase 3: User Story 2 - Reviewer Provides Feedback (Priority: P2)
+## Phase 3: User Story 2 - Features Section (Priority: P2)
 
-**Goal**: A reviewer can provide feedback on a chapter, and the author can incorporate it.
+**Goal**: A section highlighting the key features of the textbook.
 
-**Independent Test**: A pull request for a new chapter can be created, reviewed, and approved.
+**Independent Test**: The features section renders on the homepage, displaying 3-4 key features with associated icons and descriptions.
 
 ### Implementation for User Story 2
 
-- [ ] T008 [US2] A reviewer reviews the pull request for the new chapter.
-- [ ] T009 [US2] The author incorporates the feedback from the reviewer into the chapter.
+- [x] T007 [US2] Create the Features component file at `physical-ai-humanoid-book/src/components/Homepage/Features.js`.
+- [x] T008 [US2] Implement the Features section UI in `Features.js`, displaying 3-4 feature items.
+- [x] T009 [P] [US2] Create a CSS module for the Features component at `physical-ai-humanoid-book/src/components/Homepage/Features.module.css` and add styling.
+- [x] T010 [US2] Integrate the `Features` component into `physical-ai-humanoid-book/src/pages/index.js`.
 
 ---
 
-## Phase 4: User Story 3 - Student Reads the Textbook (Priority: P3)
+## Phase 4: User Story 3 - About Section (Priority: P3)
 
-**Goal**: A student can read the textbook in both web and PDF formats.
+**Goal**: A brief, engaging section about the book's purpose and audience.
 
-**Independent Test**: The textbook can be successfully built in both formats and is readable.
+**Independent Test**: The About section renders on the homepage with a heading and a short descriptive paragraph.
 
 ### Implementation for User Story 3
 
-- [ ] T010 [US3] Build the web version of the textbook by running `scripts/build-web.sh`.
-- [ ] T011 [US3] Build the PDF version of the textbook by running `scripts/build-pdf.sh`.
-- [ ] T012 [US3] Publish the generated `dist/` directory to a web server or hosting platform.
+- [x] T011 [US3] Create the About component file at `physical-ai-humanoid-book/src/components/Homepage/About.js`.
+- [x] T012 [US3] Implement the About section UI in `About.js`.
+- [x] T013 [P] [US3] Create a CSS module for the About component at `physical-ai-humanoid-book/src/components/Homepage/About.module.css` and add styling.
+- [x] T014 [US3] Integrate the `About` component into `physical-ai-humanoid-book/src/pages/index.js`.
 
 ---
 
-## Phase N: Polish & Cross-Cutting Concerns
+## Phase 5: User Story 4 - Chapters Section (Priority: P2)
 
-**Purpose**: Improvements that affect multiple user stories
+**Goal**: A section that provides a glimpse into the book's contents and structure.
 
-- [ ] T013 [P] Final proofreading and editing of all chapters.
-- [ ] T014 [P] Run automated checks for broken links and formatting errors.
-- [ ] T015 Validate the generated web and PDF outputs for readability and consistency.
+**Independent Test**: The Chapters section renders on the homepage, showing a list of the main units or chapters.
+
+### Implementation for User Story 4
+
+- [x] T015 [US4] Create the Chapters component file at `physical-ai-humanoid-book/src/components/Homepage/Chapters.js`.
+- [x] T016 [US4] Implement the Chapters section UI in `Chapters.js`, possibly linking to the documentation sidebar.
+- [x] T017 [P] [US4] Create a CSS module for the Chapters component at `physical-ai-humanoid-book/src/components/Homepage/Chapters.module.css` and add styling.
+- [x] T018 [US4] Integrate the `Chapters` component into `physical-ai-humanoid-book/src/pages/index.js`.
+
+---
+
+## Phase 6: User Story 5 - Call to Action (CTA) Section (Priority: P1)
+
+**Goal**: A clear and prominent call to action for the user.
+
+**Independent Test**: The CTA section renders on the homepage with a compelling message and a button.
+
+### Implementation for User Story 5
+
+- [x] T019 [US5] Create the CTA component file at `physical-ai-humanoid-book/src/components/Homepage/CTA.js`.
+- [x] T020 [US5] Implement the CTA section UI in `CTA.js`.
+- [x] T021 [P] [US5] Create a CSS module for the CTA component at `physical-ai-humanoid-book/src/components/Homepage/CTA.module.css` and add styling.
+- [x] T022 [US5] Integrate the `CTA` component into `physical-ai-humanoid-book/src/pages/index.js`.
+
+---
+
+## Phase 7: User Story 6 - Footer Section (Priority: P3)
+
+**Goal**: A standard footer with useful links and information.
+
+**Independent Test**: The footer renders on all pages, containing copyright information and links.
+
+### Implementation for User Story 6
+- [x] T023 [US6] The Docusaurus theme footer in `docusaurus.config.js` will be used. This task is to configure it.
+- [x] T024 [US6] Update the `themeConfig.footer` object in `physical-ai-humanoid-book/docusaurus.config.js` with relevant links (e.g., GitHub, contact) and copyright information.
+
+---
+
+## Phase 8: Polish & Cross-Cutting Concerns
+
+**Purpose**: Final improvements and consistency checks.
+
+- [x] T025 Review and adjust styling for all homepage components for a cohesive look and feel.
+- [x] T026 Ensure the homepage is responsive on both mobile and desktop viewports.
 
 ---
 
 ## Dependencies & Execution Order
 
-- **Setup (Phase 1)**: Must be completed before any other phase.
-- **User Story 1 (Phase 2)**: Can start after Setup is complete.
-- **User Story 2 (Phase 3)**: Depends on User Story 1. A chapter must be created before it can be reviewed.
-- **User Story 3 (Phase 4)**: Depends on User Story 1 and 2. The textbook should be reviewed before it is published.
-- **Polish (Phase N)**: Should be done after all content is created and reviewed.
+- **Foundational Setup (Phase 1)** must be completed first.
+- **User Stories (Phases 2-7)** can be implemented. For a cohesive homepage, it is recommended to implement them in order, but US6 (Footer) can be done in parallel.
+- **Polish (Phase 8)** should be done last.

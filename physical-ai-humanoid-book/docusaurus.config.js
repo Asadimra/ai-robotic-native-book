@@ -52,21 +52,6 @@ const config = {
           editUrl:
             'https://github.com/AI-Robotics-Book/physical-ai-humanoid-book/tree/main/',
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/AI-Robotics-Book/physical-ai-humanoid-book/tree/main/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -95,7 +80,6 @@ const config = {
             position: 'left',
             label: 'Textbook',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/AI-Robotics-Book/physical-ai-humanoid-book',
             label: 'GitHub',
@@ -107,11 +91,19 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Textbook',
             items: [
               {
-                label: 'Textbook',
+                label: 'Introduction',
                 to: '/docs/intro',
+              },
+              {
+                label: 'Unit 1: Physical AI',
+                to: '/docs/unit-1/intro',
+              },
+              {
+                label: 'Unit 2: Humanoid Systems',
+                to: '/docs/unit-2/intro',
               },
             ],
           },
@@ -119,17 +111,10 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'GitHub',
+                href: 'https://github.com/AI-Robotics-Book/physical-ai-humanoid-book',
               },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'X',
-                href: 'https://x.com/docusaurus',
-              },
+              // Add more community links as they become available (e.g., Discord, Forum)
             ],
           },
           {
@@ -139,10 +124,7 @@ const config = {
                 label: 'Blog',
                 to: '/blog',
               },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/AI-Robotics-Book/physical-ai-humanoid-book',
-              },
+              // Add other relevant links
             ],
           },
         ],

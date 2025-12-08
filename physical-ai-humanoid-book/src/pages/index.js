@@ -1,42 +1,27 @@
-import clsx from 'clsx';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import React from 'react';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
-import Heading from '@theme/Heading';
-import styles from './index.module.css';
-
-function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
-  return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
+// Import the new homepage components
+import Hero from '../components/Homepage/Hero';
+import Features from '../components/Homepage/Features';
+import About from '../components/Homepage/About';
+import Chapters from '../components/Homepage/Chapters';
+import CTA from '../components/Homepage/CTA';
 
 export default function Home() {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
-      <HomepageHeader />
+      title={`Home`}
+      description="An undergraduate-friendly guide to embodied intelligence, humanoid systems, ROS 2, simulation, and modern robotics."
+    >
+      <Hero />
       <main>
-        <HomepageFeatures />
+        <Features />
+        <About />
+        <Chapters />
+        <CTA />
       </main>
     </Layout>
   );
