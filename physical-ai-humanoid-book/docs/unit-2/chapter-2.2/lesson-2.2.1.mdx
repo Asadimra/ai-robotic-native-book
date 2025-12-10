@@ -4,4 +4,84 @@ title: "Creating a ROS 2 Package"
 sidebar_label: "Creating a ROS 2 Package"
 ---
 
-This lesson will cover Creating a ROS 2 Package.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Define what a ROS 2 package is and its purpose.
+- Create a new ROS 2 package using the `ros2 pkg create` command.
+- Understand the basic structure of a ROS 2 package.
+
+## Introduction: Organizing Your Robot Code
+
+As we learned, ROS 2 applications are built from many independent nodes that communicate with each other. To manage these nodes, along with their source code, build configurations, and dependencies, ROS 2 uses **packages**. A package is the fundamental unit for organizing and distributing ROS 2 software. Think of it like a folder that contains everything related to a specific part of your robot's functionality.
+
+For example, you might have one package for controlling the robot's wheels, another for processing camera data, and yet another for implementing a navigation algorithm. This modular approach makes code easier to write, test, and reuse.
+
+## What is a ROS 2 Package?
+
+A ROS 2 package is essentially a directory containing a set of related files, including:
+-   **Source code:** (e.g., Python scripts, C++ files) for your nodes.
+-   **Build configuration files:** (e.g., `CMakeLists.txt` for C++, `setup.py` for Python) that tell ROS how to compile or install your code.
+-   **Package manifest (`package.xml`):** Describes the package, its dependencies, author information, and license.
+-   **Resource files:** (e.g., configuration files, 3D models, images).
+
+## Creating a New ROS 2 Package
+
+Let's create a new ROS 2 package for our examples. We'll name it `my_robot_controller`.
+
+First, navigate to your ROS 2 workspace's `src` directory. If you don't have a workspace, you should create one:
+
+```bash
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src
+```
+
+Now, create the package:
+
+```bash
+ros2 pkg create --build-type ament_python my_robot_controller
+```
+
+-   `ros2 pkg create`: This is the command to create a new package.
+-   `--build-type ament_python`: This specifies the build system for our package. `ament_python` is used for Python packages. For C++ packages, you would use `ament_cmake`.
+-   `my_robot_controller`: This is the name of our new package.
+
+After running this command, you will see a new directory `my_robot_controller` created inside your `src` folder.
+
+## Basic Package Structure
+
+Let's look inside our newly created package:
+
+```
+my_robot_controller/
+├── package.xml
+├── setup.py
+├── resource/
+│   └── my_robot_controller
+└── my_robot_controller/
+    └── __init__.py
+```
+
+-   **`package.xml`**: Contains metadata about your package (name, version, description, dependencies). You'll need to edit this file to declare any external libraries or other ROS 2 packages your code depends on.
+-   **`setup.py`**: For Python packages, this file is used by `setuptools` to define how your Python modules are built and installed. You'll add entry points here for your executable nodes.
+-   **`resource/my_robot_controller`**: An empty file required by `ament_python` build system.
+-   **`my_robot_controller/` (sub-directory)**: This is where your Python source code files (e.g., your node scripts) will reside. The `__init__.py` file makes this a Python package.
+
+## Building Your Workspace
+
+After creating a new package or modifying `package.xml` or `setup.py`, you need to build your workspace from the root of your `ros2_ws` directory:
+
+```bash
+cd ~/ros2_ws
+colcon build
+```
+
+`colcon` is the build tool used in ROS 2. Running `colcon build` will compile and install all packages in your workspace. If you only want to build your new package, you can use:
+
+```bash
+colcon build --packages-select my_robot_controller
+```
+
+## Summary
+
+In this lesson, we learned that ROS 2 packages are essential for organizing robot software. We practiced creating a new Python package using `ros2 pkg create` and explored its basic file structure, including `package.xml` and `setup.py`. Finally, we reviewed how to build the workspace using `colcon build` to make our new package ready for development. This foundational understanding is crucial before we start writing our first ROS 2 nodes.

@@ -4,4 +4,76 @@ title: "Gait and Stability"
 sidebar_label: "Gait and Stability"
 ---
 
-This lesson will cover Gait and Stability.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Define "Degrees of Freedom" (DoF) in the context of robotics.
+- Understand the concept of the Center of Mass (CoM) and its importance for balance.
+- Explain why maintaining balance is a fundamental and difficult challenge for bipedal humanoid robots.
+
+## Degrees of Freedom (DoF)
+
+The flexibility and dexterity of a robot are determined by its **Degrees of Freedom (DoF)**. A DoF is a single, independent parameter that defines one aspect of a robot's movement. In simple terms, each DoF corresponds to one joint's ability to move.
+
+-   **1-DoF Joint:** A simple hinge joint, like an elbow, that can only rotate around one axis.
+-   **3-DoF Joint:** A ball-and-socket joint, like a human shoulder, that can rotate around three different axes (e.g., pitch, yaw, and roll).
+
+A typical humanoid robot has many DoF to mimic human motion:
+-   **Legs:** 6 DoF per leg (3 at the hip, 1 at the knee, 2 at the ankle) is common.
+-   **Arms:** 7 DoF per arm allows for full dexterity.
+-   **Torso and Head:** Can add several more DoF.
+
+A full humanoid robot can easily have **30 to 50 DoF**. This high number of degrees of freedom provides great flexibility but also creates an immense control challenge: the robot's AI must coordinate all these joints simultaneously to perform even a simple task like walking.
+
+```
+       Shoulder (3 DoF)
+           |
+         Elbow (1 DoF)
+           |
+         Wrist (3 DoF)
+           = 7 DoF Arm
+```
+
+## The Challenge of Balance
+
+For bipedal (two-legged) humanoid robots, **balance** is the single most important and difficult problem to solve. Unlike four-legged robots, which have a wide and stable base of support, a bipedal robot is inherently unstable. It is constantly on the verge of falling and must actively work to stay upright.
+
+### Center of Mass (CoM)
+
+The key to balance is managing the robot's **Center of Mass (CoM)**. The CoM is the average location of the mass of an object. For a robot to be stable, its CoM must be kept vertically above its **support polygon**.
+
+-   **Support Polygon:** The area on the ground enclosed by the robot's points of contact with the ground. When standing on two feet, this is the area encompassing both feet. When walking, it might just be the area of a single foot.
+
+```
+      +-------+
+      | Robot |
+      +---O---+   <-- Center of Mass (CoM)
+          |
+          | (Gravity acts on CoM)
+          v
+  /-----------------\
+ /    Support      \
+/      Polygon      \
+---------------------
+    (Area of Feet)
+```
+
+**The Golden Rule of Bipedal Balance:** To stay balanced, the robot must constantly adjust its posture (by moving its joints) to ensure the vertical projection of its CoM stays within the boundaries of its support polygon.
+
+### Dynamic Stability and the ZMP
+
+When a robot is standing still, this is called **static balance**. However, when it's walking, it's a process of constantly falling and catching itself. This is called **dynamic stability**.
+
+A key concept used to control dynamic walking is the **Zero Moment Point (ZMP)**. The ZMP is the point on the ground where the net moment (or torque) from gravity and inertia is zero. In simpler terms, it's the point where the robot's overall tipping-over force is centered.
+
+-   **To walk dynamically:** The robot's control system calculates where the ZMP needs to be and then moves its body and swings its legs to place its foot at that exact spot.
+-   By continuously moving the ZMP from one foot to the next, the robot creates a controlled "fall" forward, which we perceive as walking.
+
+This process requires:
+-   **Precise Sensors:** IMUs and force sensors to know the robot's current state and its interaction with the ground.
+-   **Fast Actuators:** Motors that can react quickly to make fine adjustments.
+-   **Sophisticated Control Algorithms:** An AI brain that can predict the robot's future state and calculate the necessary joint movements to keep the CoM and ZMP in the right place.
+
+## Summary
+
+In this lesson, we explored two critical concepts in humanoid robotics. First, we defined **Degrees of Freedom (DoF)** as the individual movements that give a robot its flexibility, noting that a typical humanoid has many DoF that must be coordinated. Second, we delved into the fundamental challenge of **balance**, explaining the importance of keeping the **Center of Mass (CoM)** over the support polygon. We introduced the concept of the **Zero Moment Point (ZMP)** as a key principle for achieving dynamic stability during walking. This constant, active balancing act is what makes bipedal locomotion one of the most difficult problems in all of robotics.

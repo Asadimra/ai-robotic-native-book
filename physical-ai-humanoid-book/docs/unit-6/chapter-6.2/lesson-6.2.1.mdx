@@ -4,4 +4,89 @@ title: "Grippers and End-Effectors"
 sidebar_label: "Grippers and End-Effectors"
 ---
 
-This lesson will cover Grippers and End-Effectors.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Define robotic manipulation and its importance for humanoids.
+- Identify the role of an end-effector.
+- Differentiate between various types of grippers and their use cases.
+- Understand the basic principles of different grasp types.
+
+## Introduction to Robotic Manipulation
+
+While locomotion allows a robot to move through an environment, **manipulation** is what allows it to *interact* with that environment in a meaningful way. Manipulation is the ability of a robot to purposefully move, grasp, and use objects. For a humanoid robot, this is the key to performing useful tasks, from picking up a cup to using a power tool.
+
+This chapter focuses on how humanoid robots achieve manipulation, starting with the most critical component: the "hand."
+
+## End-Effectors: The Robot's Hand
+
+The device at the end of a robot's arm is called an **end-effector**. It is the tool that the robot uses to perform its task. While the end-effector can be anything from a drill to a welding torch, for general-purpose humanoid robots, it is most often a **gripper** designed to function like a human hand.
+
+```
+  +------------+
+  | Robot Arm  |
+  +------------+
+        |
+        | (Wrist Joint)
+        v
++----------------+
+| End-Effector   |
+| (e.g., Gripper)|
++----------------+
+```
+
+## Types of Grippers
+
+Grippers come in many forms, each with its own advantages and disadvantages.
+
+### 1. Simple Parallel Grippers
+
+This is one of the most common types of grippers. It consists of two "fingers" that move parallel to each other to open and close.
+-   **How it works:** Two jaws slide on a track to clamp down on an object.
+-   **Best for:** Picking up simple, regular shapes like boxes or cylinders.
+-   **Analogy:** Using your thumb and index finger to pinch something.
+
+```
+   |     |
+  <--   -->  (Jaws move in and out)
+   |_____|
+ (Parallel Gripper)
+```
+
+### 2. Angular Grippers
+
+The jaws of an angular gripper pivot to open and close, swinging in an arc.
+-   **How it works:** The jaws rotate around a pivot point.
+-   **Best for:** Situations where a wider opening is needed in a compact space.
+
+### 3. Adaptive Grippers
+
+Adaptive grippers have multiple joints and linkages in their fingers, allowing them to conform to the shape of an object.
+-   **How it works:** The fingers wrap around the object, distributing pressure and providing a very secure hold.
+-   **Best for:** Grasping irregularly shaped or delicate objects.
+-   **Analogy:** The way your whole hand wraps around a baseball.
+
+### 4. Multi-Fingered Dexterous Hands
+
+These are the most complex and human-like end-effectors, featuring multiple, independently controlled fingers (often three to five).
+-   **How it works:** Each finger has several joints, allowing for incredibly fine motor control.
+-   **Best for:** Tasks requiring high dexterity, such as using tools, manipulating small objects, or performing in-hand re-orientation (moving an object around within the hand).
+-   **Challenge:** They are mechanically complex and require very sophisticated control algorithms.
+
+## Grasp Types
+
+How a robot holds an object is called the **grasp**. The type of grasp depends on the object's shape, weight, and the task to be performed.
+
+-   **Power Grasp:** The entire hand (or gripper) wraps around the object for maximum stability and force. This is used for holding heavy objects or tools like a hammer.
+-   **Precision Grasp:** The object is held by the tips of the fingers. This allows for high dexterity and fine control, used for tasks like picking up a key or writing with a pen.
+
+```
++----------------+      +-----------------+
+| Power Grasp    |      | Precision Grasp |
+| (Full wrap)    |      | (Fingertip hold)|
++----------------+      +-----------------+
+```
+
+## Summary
+
+In this lesson, we introduced **robotic manipulation** as the key to a humanoid's ability to interact with its world. We learned that the tool at the end of the arm is the **end-effector**, which is most commonly a **gripper**. We explored different types of grippers, from simple **parallel grippers** to complex, multi-fingered **dexterous hands**. Finally, we differentiated between **power grasps** for stability and **precision grasps** for dexterity. This foundation is essential for understanding the next step: how the robot controls its arm to position the gripper for a successful grasp.

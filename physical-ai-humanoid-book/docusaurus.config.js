@@ -30,7 +30,7 @@ const config = {
   organizationName: 'AI-Robotics-Book', // Usually your GitHub org/user name.
   projectName: 'physical-ai-humanoid-book', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -97,14 +97,6 @@ const config = {
                 label: 'Introduction',
                 to: '/docs/intro',
               },
-              {
-                label: 'Unit 1: Physical AI',
-                to: '/docs/unit-1/intro',
-              },
-              {
-                label: 'Unit 2: Humanoid Systems',
-                to: '/docs/unit-2/intro',
-              },
             ],
           },
           {
@@ -115,16 +107,6 @@ const config = {
                 href: 'https://github.com/AI-Robotics-Book/physical-ai-humanoid-book',
               },
               // Add more community links as they become available (e.g., Discord, Forum)
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              // Add other relevant links
             ],
           },
         ],

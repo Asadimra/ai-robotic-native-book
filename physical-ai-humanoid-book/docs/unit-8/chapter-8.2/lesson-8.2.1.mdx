@@ -4,4 +4,78 @@ title: "Building and Integrating the System"
 sidebar_label: "Building and Integrating the System"
 ---
 
-This lesson will cover Building and Integrating the System.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Understand how to break a large robotics project into manageable milestones.
+- Design a high-level system architecture for your capstone project.
+- Create a clear workflow diagram for your project.
+
+## Introduction: From Plan to Action
+
+You have a project proposal, a clear goal, and a set of requirements. Now it's time to build! This chapter provides a roadmap for executing your capstone project, from breaking down the work into manageable pieces to preparing for your final demonstration. A structured approach to implementation is key to managing complexity and ensuring you stay on track.
+
+## Breaking the Project into Milestones
+
+A large robotics project can feel overwhelming. The best way to tackle it is to break it down into smaller, achievable **milestones**. A milestone is a significant checkpoint that represents the completion of a major part of your project. This allows you to focus on one piece at a time and provides a clear sense of progress.
+
+A typical project workflow can be broken down as follows:
+
+1.  **Milestone 1: Basic Setup & Teleoperation:**
+    -   Assemble hardware.
+    -   Install all necessary software (OS, ROS 2, simulators).
+    -   Get the robot moving with direct manual control (e.g., a keyboard or joystick). This confirms your basic hardware and communication setup is working.
+
+2.  **Milestone 2: Simulation & Perception:**
+    -   Create a simulated version of your robot and environment (e.g., in Gazebo).
+    -   Implement the core perception task (e.g., write the code to detect a colored object with a camera).
+
+3.  **Milestone 3: Basic Autonomous Action:**
+    -   Integrate your perception module with your control module.
+    -   Achieve a single, simple autonomous behavior (e.g., make the robot move towards the detected object).
+
+4.  **Milestone 4: Full Task Execution:**
+    -   Implement the complete end-to-end logic for your main goal (e.g., navigate to, pick up, and return the object).
+
+5.  **Milestone 5: Testing, Tuning, and Documentation:**
+    -   Rigorously test your system, fix bugs, and tune parameters for better performance.
+    -   Write your final report and prepare your demonstration.
+
+## Designing a System Architecture
+
+Before you write a single line of complex code, you should have a clear **system architecture**. This is a high-level diagram showing the main software components (e.g., ROS 2 nodes) and how they connect and communicate with each other.
+
+**Example: System Architecture for an Autonomous Fetch-Bot**
+
+```
++-----------+     /camera/image    +--------------+    /object_location   +-------------+
+| Camera    |--------------------->|  Object      |--------------------->|  Navigation |
+| Node      |      (Sensor Msg)    |  Detector    |     (Point Msg)      |  Goal       |
++-----------+                      |  Node        |                      |  Setter     |
+                                   +--------------+                      +-------------+
+                                                                                |
+                                                                                | /goal_pose
+                                                                                v
+                                                                          +-------------+
+                                                                          |   ROS 2     |
+                                                                          |   Nav2      |
+                                                                          |   Stack     |
+                                                                          +-------------+
+                                                                                |
+                                                                                | /cmd_vel
+                                                                                v
+                                                                          +-------------+
+                                                                          | Robot       |
+                                                                          | Controller  |
+                                                                          +-------------+
+```
+This diagram clearly shows:
+-   **Nodes:** The distinct software modules (Camera, Detector, Goal Setter, etc.).
+-   **Topics:** The channels they use to communicate (e.g., `/camera/image`).
+-   **Data Flow:** How information flows from sensors through processing nodes to actuators.
+
+Having an architecture diagram helps you organize your code, understand dependencies, and allows team members to work on different components in parallel.
+
+## Summary
+
+In this lesson, we laid the foundation for successful project execution. We learned how to break a large project into manageable **milestones** to ensure steady progress. We also covered the importance of designing a clear **system architecture** to map out the software components and data flow of your robotic system. This structured approach is essential for managing complexity and building a robust and functional robot.

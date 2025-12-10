@@ -5,19 +5,19 @@ import styles from './Chapters.module.css';
 
 const ChapterList = [
   {
-    title: 'Unit 1: Physical AI',
+    title: 'Unit 1: Introduction to Physical AI',
     description: 'Explore the foundations of embodied intelligence and robotic hardware.',
-    link: '/docs/unit-1/intro',
+    link: '/docs/category/unit-1-introduction',
   },
   {
-    title: 'Unit 2: Humanoid Systems',
+    title: 'Unit 2: Module 1: ROS 2',
     description: 'Dive into the mechanics and control of humanoid robots.',
-    link: '/docs/unit-2/intro',
+    link: '/docs/category/unit-2-module-1-ros-2',
   },
   {
-    title: 'Unit 3: ROS 2 Fundamentals',
+    title: 'Unit 3: Module 2: Gazebo & Unity',
     description: 'Master the Robot Operating System for building complex applications.',
-    link: '/docs/unit-3/intro',
+    link: '/docs/category/unit-3-module-2-gazebo-unity',
   },
   // Add more chapters as needed
 ];

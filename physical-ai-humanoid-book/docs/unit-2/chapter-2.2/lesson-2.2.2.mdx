@@ -4,4 +4,80 @@ title: "Writing a Simple Publisher and Subscriber"
 sidebar_label: "Writing a Simple Publisher and Subscriber"
 ---
 
-This lesson will cover Writing a Simple Publisher and Subscriber.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Explain the role of ROS 2 topics in inter-node communication.
+- Define a ROS 2 publisher and its function.
+- Define a ROS 2 subscriber and its function.
+- Understand how messages are used for data exchange over topics.
+- Visualize the flow of data using the ROS 2 computation graph.
+
+## Topics: The Data Highways
+
+As introduced in Chapter 2.1, **topics** are the primary mechanism for asynchronous, many-to-many communication in ROS 2. They act as data highways, allowing nodes to stream information without needing to know specifically who is sending or receiving.
+
+-   Each topic has a **name** (e.g., `/cmd_vel`, `/odom`, `/scan`) and a **message type** (e.g., `geometry_msgs/msg/Twist`, `nav_msgs/msg/Odometry`, `sensor_msgs/msg/LaserScan`).
+-   Nodes that want to send data on a topic become **publishers**.
+-   Nodes that want to receive data from a topic become **subscribers**.
+
+This publish-subscribe model is highly flexible. Any number of publishers can send data to a topic, and any number of subscribers can receive data from it.
+
+## Publishers: Broadcasting Information
+
+A **publisher** node is responsible for creating and sending messages to a specific topic. Imagine a camera driver node that continuously captures images; it would be a publisher to a topic like `/camera/image_raw`.
+
+Key aspects of publishers:
+-   They `create_publisher()` for a given topic name and message type.
+-   They send messages frequently, often in a loop, at a specified rate.
+-   They don't know or care if anyone is subscribed; they just broadcast.
+
+## Subscribers: Listening for Information
+
+A **subscriber** node is responsible for receiving messages from a specific topic. A robot vision processing node, for example, would be a subscriber to the `/camera/image_raw` topic to get images for analysis.
+
+Key aspects of subscribers:
+-   They `create_subscription()` to a given topic name and message type.
+-   They register a **callback function** that gets executed every time a new message arrives.
+-   They process the incoming data as needed.
+
+## Messages: The Data Itself
+
+**Messages** are the actual data structures exchanged over topics (and other communication mechanisms). Each message type is defined by a `.msg` file, which specifies the names and types of the fields within the message. For example, a `Twist` message (used for commanding robot velocity) might have fields for linear velocity (`x`, `y`, `z`) and angular velocity (`roll`, `pitch`, `yaw`).
+
+ROS 2 automatically generates code from these `.msg` files into various programming languages (Python, C++, etc.), allowing you to easily create and manipulate messages in your nodes.
+
+## The ROS 2 Computation Graph
+
+The **ROS 2 computation graph** is a high-level overview of the ROS 2 system, showing all the executable nodes and the connections between them (topics, services, actions). It's a conceptual map that helps you understand how different parts of your robot software interact.
+
+Let's visualize a simple robot with a motor controller and a user interface.
+
+```
++---------------+        +------------------+        +-----------------+
+|               |        |                  |        |                 |
+|   UI Node     |------->|   /cmd_vel       |------->| Motor Control   |
+| (Publishes    | (geometry_msgs/Twist)    |        | Node            |
+| Velocity Cmds)|        |    (Topic)       |        | (Subscribes     |
+|               |        |                  |        |  to /cmd_vel)   |
++---------------+        +------------------+        +-----------------+
+
+           ^                                    ^
+           |                                    |
+           +------------------------------------+
+              This diagram shows a simple ROS 2 Computation Graph:
+              - UI Node publishes velocity commands.
+              - /cmd_vel topic carries these commands.
+              - Motor Control Node subscribes and acts on them.
+```
+In this example:
+-   **Nodes:** `UI Node` and `Motor Control Node`.
+-   **Topic:** `/cmd_vel`.
+-   **Message Type:** `geometry_msgs/msg/Twist`.
+-   **Data Flow:** The `UI Node` (publisher) sends `Twist` messages to the `/cmd_vel` topic, and the `Motor Control Node` (subscriber) receives these messages to drive the robot.
+
+This clear separation allows developers to swap out the UI (e.g., replace a joystick with an AI navigation planner) without changing the `Motor Control Node`, as long as the new component publishes `geometry_msgs/msg/Twist` messages to `/cmd_vel`.
+
+## Summary
+
+This lesson deepened our understanding of ROS 2 communication by focusing on **topics**, **publishers**, and **subscribers**. We learned how topics serve as data streams, enabling modular and decoupled communication between nodes through the publish-subscribe pattern. We also saw how **messages** define the structure of data exchanged and how the **ROS 2 computation graph** provides a visual representation of these interactions. In the next lesson, we will put this theory into practice by writing simple Python publisher and subscriber nodes.

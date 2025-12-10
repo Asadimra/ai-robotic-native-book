@@ -4,4 +4,71 @@ title: "Bipedal vs. Quadrupedal Locomotion"
 sidebar_label: "Bipedal vs. Quadrupedal Locomotion"
 ---
 
-This lesson will cover Bipedal vs. Quadrupedal Locomotion.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Define what a humanoid robot is.
+- Identify the key components that make up a humanoid robot, including sensors, actuators, and joints.
+- Describe the general morphology (body structure) of a humanoid robot.
+
+## Introduction to Humanoid Robotics
+
+Welcome to the unit on Humanoid Robotics! So far, we have explored the software, AI, and simulation that drive intelligent systems. Now, we focus on one of the most challenging and iconic forms in all of robotics: the **humanoid robot**. A humanoid robot is a robot with its body shape built to resemble the human body. This design typically includes a torso, a head, two arms, and two legs, though some may only have the upper body.
+
+The ultimate goal of humanoid robotics is to create machines that can operate in human-centric environments, use tools made for humans, and interact with people in a natural, intuitive way.
+
+## Key Components of a Humanoid Robot
+
+Like any robot, a humanoid is composed of several critical components working together.
+
+### 1. Sensors
+
+**Sensors** are the robot's "senses," allowing it to perceive its environment and its own state.
+-   **Vision (Cameras):** The robot's "eyes," used for navigation, object recognition, and tracking.
+-   **Proprioception (IMUs, Joint Encoders):** These sensors measure the robot's own body position. **IMUs (Inertial Measurement Units)** measure orientation and acceleration (for balance), while **joint encoders** report the exact angle of each joint.
+-   **Force/Torque Sensors:** Often placed in the feet, ankles, and wrists, these sensors measure forces and torques, which are crucial for maintaining balance and controlling manipulation tasks.
+-   **Tactile Sensors:** "Skin-like" sensors that allow a robot to feel contact and pressure.
+
+### 2. Actuators
+
+**Actuators** are the robot's "muscles," converting electrical energy into physical motion.
+-   **Electric Motors:** The most common type of actuator in humanoids. These can be high-torque DC motors or precise servo motors.
+-   **Hydraulic or Pneumatic Systems:** Used in some high-power robots (like Boston Dynamics' Atlas) to provide incredibly strong and fast movements, though they are more complex than electric motors.
+
+### 3. Joints
+
+**Joints** are the points of articulation that allow the robot to move. The number, type, and arrangement of joints determine the robot's flexibility and range of motion. Each joint represents one or more **Degrees of Freedom (DoF)**, which we will explore in the next lesson.
+
+## General Robot Morphology
+
+The **morphology** of a humanoid robot refers to its body shape and structure. The goal is to mimic the human form to achieve human-like capabilities.
+
+**Typical Humanoid Structure:**
+
+```
+      +-------+
+      | Head  | (Contains cameras, microphones)
+      +-------+
+          |
++---------+---------+
+|      Torso        | (Houses computers, power supply)
++--+-------------+--+
+   |             |
++--v--+       +--v--+
+| Arm |       | Arm | (For manipulation)
++-----+       +-----+
+   |             |
++--v--+       +--v--+
+| Leg |       | Leg | (For locomotion)
++-----+       +-----+
+```
+
+-   **Head:** Typically contains cameras (vision), microphones (hearing), and sometimes speakers for communication.
+-   **Torso:** The central part of the body, which connects all the limbs and often houses the main computers, power supply (batteries), and other core electronics.
+-   **Arms:** Used for manipulation tasks, such as picking up objects, opening doors, or using tools. They have shoulder, elbow, and wrist joints.
+-   **Legs:** Used for locomotion (walking, running, climbing stairs). They have hip, knee, and ankle joints. The design of the legs and feet is critical for maintaining balance.
+-   **End-Effectors (Hands/Grippers):** The "hands" of the robot, designed for grasping and interacting with objects. These can range from simple two-fingered grippers to highly complex, multi-fingered hands that mimic human dexterity.
+
+## Summary
+
+In this lesson, we defined a **humanoid robot** as a robot designed to resemble the human body. We identified its three key components: **sensors** for perception, **actuators** for movement, and **joints** for articulation. We also examined the typical **morphology** or body plan of a humanoid, from the head and torso to the arms and legs. This structure is deliberately chosen to enable robots to operate effectively in environments designed for humans. In the next lesson, we will explore how the arrangement of joints leads to degrees of freedom and the immense challenge of balance.

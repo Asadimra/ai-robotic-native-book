@@ -4,4 +4,67 @@ title: "Designing Natural Language Interfaces"
 sidebar_label: "Designing Natural Language Interfaces"
 ---
 
-This lesson will cover Designing Natural Language Interfaces.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Explain how LLMs can be used for high-level task planning in robotics.
+- Describe a typical architecture for connecting an LLM to a ROS 2 control system.
+- Identify real-world examples of conversational robots that leverage language models.
+
+## High-Level Planning with LLMs
+
+Beyond parsing single commands, LLMs can also act as high-level **task planners**. Given a complex, multi-step goal, an LLM can use its common-sense reasoning abilities to break that goal down into a sequence of simpler, executable steps.
+
+**Example:**
+
+-   **Human Command:** `"Clean up the table."`
+-   **LLM's Reasoning and Planning:** The LLM knows that "cleaning a table" involves several sub-tasks. It generates a plan:
+    1.  `find_objects_on("table")`
+    2.  `for each object found:`
+    3.    `pick_up(object)`
+    4.    `place_in("trash_bin")`
+    5.  `find("sponge")`
+    6.  `pick_up("sponge")`
+    7.  `wipe("table_surface")`
+
+The LLM doesn't know *how* to execute `pick_up` or `wipe`—those are the job of the robot's underlying control policies (like a VLA or a classical motion planner). The LLM simply provides the high-level "what to do," not the low-level "how to do it."
+
+## Connecting LLMs to ROS 2
+
+A common way to integrate this architecture is to use ROS 2 as the messaging backbone.
+
+1.  A "User Interface" node (e.g., a voice recognition node) captures the user's command and sends it to an "LLM" node.
+2.  The "LLM" node communicates with the language model (often via a cloud API), gets back the structured plan, and validates it through a safety filter.
+3.  The "LLM" node then publishes the simplified, individual steps of the plan as messages on specific ROS 2 topics (e.g., `/pickup_object`, `/navigate_to`).
+4.  Other specialized nodes (e.g., a "Manipulation" node, a "Navigation" node) subscribe to these topics and execute the low-level actions.
+
+```
++------------+     /user_command    +---------+     LLM API      +------------+
+| Speech Rec |--------------------->| LLM Node|------------------>|  LLM Cloud |
+|    Node    |     (ROS 2 Topic)    +---------+                  +------------+
++------------+                            |
+                                           | (Plan)
++------------+                            v
+| Navigation |<--------------------+------------+
+|    Node    |     /navigate_to    | Safety &   |
++------------+     (ROS 2 Topic)   | Dispatcher |
+                                   +------------+
++------------+                            ^
+| Manipulation|<-------------------|
+|    Node    |     /manipulate_object|
++------------+     (ROS 2 Topic)
+```
+
+## Real-World Examples of Conversational Robots
+
+-   **Google's Everyday Robots:** Researchers at Google integrated LLMs into their everyday helper robots. They showed that by using an LLM for high-level reasoning, the robots could successfully interpret complex human commands (e.g., "I spilled my drink, can you help?") and generate a sensible sequence of actions (find a sponge, go to the spill, wipe it up) without being explicitly programmed for that exact scenario.
+
+-   **Boston Dynamics' Spot with GPT:** In some demonstrations, the quadruped robot Spot has been integrated with language models, allowing users to ask it to perform inspection tours by describing the route in natural language (e.g., "go to the front door, turn left, and take a picture of the main valve").
+
+-   **Figure 01:** A humanoid robot from the company Figure, which has demonstrated the ability to have spoken conversations with a human. The robot can answer questions about what it sees and reason about what to do next based on the conversation, showcasing a tight integration between a language model and the robot's control and perception systems.
+
+## Summary of Chapter 7.1
+
+In this chapter, we explored the exciting integration of **Large Language Models (LLMs)** into robotics. We began by understanding how LLMs perform **Natural Language Understanding (NLU)** and **command parsing** to translate human speech into machine-readable instructions. We then discussed the critical concepts of **grounding** language to physical actions and objects, the importance of **multimodal inputs** for contextual understanding, and the absolute necessity of **safety filters**.
+
+Finally, we saw how LLMs can be used as **high-level task planners**, breaking down complex goals into simple, executable steps. We outlined a typical architecture for connecting an LLM to a **ROS 2** system and looked at real-world examples of conversational robots that are pushing the boundaries of human-robot interaction. This powerful combination of language and action is a key step towards creating truly helpful and collaborative robots.

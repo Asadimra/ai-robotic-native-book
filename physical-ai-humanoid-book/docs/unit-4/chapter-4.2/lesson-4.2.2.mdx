@@ -4,4 +4,77 @@ title: "Using Isaac GEMs"
 sidebar_label: "Using Isaac GEMs"
 ---
 
-This lesson will cover Using Isaac GEMs.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Understand how Isaac SDK integrates with ROS 2.
+- Explain how Isaac handles common robotics workflows: perception, planning, and control.
+- Recognize the benefits of using Isaac's pre-built algorithms (GEMs).
+
+## Integration with ROS 2
+
+One of the significant advantages of the Isaac SDK is its ability to integrate seamlessly with the Robot Operating System (ROS 2). This allows developers to combine the high-performance, GPU-accelerated capabilities of Isaac with the vast ecosystem and standardized communication of ROS 2.
+
+The integration is primarily achieved through **ROS 2 Bridges** within Isaac. These bridges allow for bi-directional message exchange between Isaac SDK applications (using its Codelet/Graph architecture) and ROS 2 nodes (using topics, services, actions).
+
+**How it works:**
+-   **Isaac to ROS 2:** Isaac Codelets can publish data (e.g., processed sensor data, object detections, robot state) to ROS 2 topics.
+-   **ROS 2 to Isaac:** Isaac Codelets can subscribe to ROS 2 topics to receive commands (e.g., desired velocity, navigation goals) from other ROS 2 nodes.
+
+```
++------------------+          +-----------------+          +-----------------+
+|   Isaac SDK App  | <------> |  ROS 2 Bridge   | <------> |   ROS 2 Nodes   |
+| (Codelets, Graph)|          |                 |          | (Topics, Msgs)  |
++------------------+          +-----------------+          +-----------------+
+```
+
+This hybrid approach allows you to leverage Isaac for computationally intensive tasks like advanced perception or physics simulation, while using ROS 2 for overall system orchestration, high-level control, and integration with standard robotics tools.
+
+## Robotics Workflows in Isaac SDK
+
+The Isaac SDK provides a structured way to implement the core workflows of robotics: Perception, Planning, and Control.
+
+### 1. Perception
+
+**Perception** is about the robot understanding its environment. Isaac SDK accelerates this with GPU-optimized algorithms.
+-   **Sensor Processing:** Codelets for processing raw sensor data from cameras (image processing, object detection), LiDAR (point cloud processing), and IMUs.
+-   **Computer Vision GEMs:** Pre-built algorithms for tasks like:
+    -   **Object Detection:** Identifying and locating objects in the scene.
+    -   **Segmentation:** Grouping pixels belonging to the same object.
+    -   **3D Reconstruction:** Creating a 3D map of the environment.
+
+**Pseudo-code Example (Perception):**
+```python
+# Isaac SDK Codelet for Object Detection
+def start(self):
+    # Subscribe to camera image channel
+    self.subscribe(self.inputs.color_image, self.on_image)
+
+def on_image(self, image_message):
+    # Run GPU-accelerated object detection algorithm
+    detections = self.object_detector_gem.process(image_message)
+    # Publish detected objects to an output channel
+    self.publish(self.outputs.detected_objects, detections)
+```
+
+### 2. Planning
+
+**Planning** involves deciding what actions the robot should take to achieve a goal, given its understanding of the environment.
+-   **Path Planning:** Generating collision-free paths for the robot to move from one point to another.
+-   **Motion Planning:** Specifically for robot manipulators (arms), determining the sequence of joint movements to reach a target pose without collisions.
+-   **Navigation:** High-level planning for mobile robots to navigate complex environments.
+
+Isaac SDK offers GEMs and tools that can integrate with existing planning algorithms or provide optimized solutions for common planning problems.
+
+### 3. Control
+
+**Control** is the execution of the planned actions, making the robot physically move and interact with its environment.
+-   **Motor Control:** Codelets to send commands to motors and actuators, precisely controlling joint positions, velocities, or torques.
+-   **Balance and Stability:** For humanoids, complex control algorithms are needed to maintain balance during locomotion and manipulation.
+-   **Force Control:** For delicate tasks, controlling the force exerted by end-effectors.
+
+Isaac's low-latency communication and GPU acceleration are vital for ensuring real-time and responsive control, especially for dynamic humanoid robots.
+
+## Summary
+
+In this lesson, we delved into how the **Isaac SDK integrates with ROS 2** via specialized bridges, allowing developers to harness the strengths of both platforms. We then explored how Isaac facilitates the fundamental robotics workflows of **perception, planning, and control**, leveraging its modular architecture and GPU-accelerated GEMs to provide efficient and high-performance solutions. This understanding is key to developing sophisticated AI behaviors for complex robotic systems.

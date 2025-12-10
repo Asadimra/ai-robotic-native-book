@@ -1,7 +1,68 @@
 ---
 id: grasping-and-object-manipulation
 title: "Grasping and Object Manipulation"
-sidebar_label: "Grasping and Object Manipulation"
+sidebar_label: "Grasping & Manipulation"
 ---
 
-This lesson will cover Grasping and Object Manipulation.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Understand the concept of manipulation planning.
+- Explain the importance of force control for delicate tasks.
+- Identify real-world applications of humanoid manipulation.
+
+## Manipulation Planning: From Goal to Motion
+
+Knowing how to move the hand to a target (Inverse Kinematics) is only one piece of the puzzle. **Manipulation planning** is the higher-level process of figuring out the entire sequence of motions required to complete a task, often involving obstacle avoidance.
+
+A manipulation planner must consider:
+1.  **The Start and Goal:** Where is the arm now, and where does the object need to go?
+2.  **The Environment:** Where are the obstacles (e.g., a table, another object, the robot's own body)?
+3.  **The Path (Trajectory):** What is a collision-free path for the arm to move from the start to the goal?
+
+This is often called **motion planning**. The planner searches for a valid trajectory in the robot's high-dimensional configuration space (the space of all possible joint angles).
+
+```
++-----------------+      +------------------+
+|      Start      |      |       Goal       |
+|      Pose       |      |       Pose       |
++-----------------+      +------------------+
+        |                      ^
+        |                      |
+        v                      |
++------------------------------------------+
+|          Motion Planning Algorithm       |
+| (Considers obstacles, joint limits, etc.)|
++------------------------------------------+
+        |
+        |
+        v
++------------------------------------------+
+| A Collision-Free Trajectory of Joint Angles|
++------------------------------------------+
+```
+
+## Force Control: The Sense of Touch
+
+Simply moving to a position is often not enough. Many tasks require a robot to interact with a surface while applying a specific amount of force. For example, wiping a table requires the robot to press down with a consistent, gentle force. This is where **force control** comes in.
+
+-   **Position Control:** The robot's goal is to reach a specific position (e.g., `x, y, z`). This is good for moving in free space.
+-   **Force Control:** The robot's goal is to apply a specific force against a surface. This is essential for tasks involving contact, like grinding, polishing, or assembly.
+
+Humanoid robots use **force-torque sensors** in their wrists and hands to get the feedback needed for force control. This allows them to "feel" their interaction with the world and perform delicate tasks without breaking objects or themselves.
+
+## Real-World Humanoid Manipulation Examples
+
+1.  **Assembly in Manufacturing:** Humanoid robots are being developed to work on assembly lines designed for humans. They can use power tools, insert components, and perform quality checks, offering more flexibility than traditional fixed robot arms.
+
+2.  **Logistics and Warehouse Operations:** Robots like Digit are designed to carry packages, unload trucks, and move bins in warehouses. Their ability to grasp different types of containers and navigate human-centric spaces like stairs makes them highly valuable.
+
+3.  **Disaster Response:** In scenarios too dangerous for humans, a humanoid robot could be teleoperated to turn valves, clear debris, or operate machinery. Its ability to manipulate tools and interact with a damaged environment is a key advantage.
+
+4.  **Assisted Living and Healthcare:** Humanoids are being researched for roles in assisting the elderly or patients, performing tasks like fetching medication, opening a bottle of water, or providing physical support.
+
+## Summary of Chapter 6.2
+
+In this chapter, we delved into the complex world of **robotic manipulation**. We started with the tools of the trade: **end-effectors and grippers**, from simple parallel jaws to highly dexterous multi-fingered hands. We then explored the core mathematical problem of controlling the arm's position through **kinematics**, learning how **Forward Kinematics** tells the robot where its hand is and how **Inverse Kinematics** calculates the joint angles needed to get it to a desired target.
+
+Finally, we looked at the higher-level challenges of **manipulation planning** to generate collision-free movements and the importance of **force control** for performing delicate tasks involving contact. By examining real-world examples, we've seen how these fundamental concepts come together to enable humanoid robots to perform useful, complex, and human-like tasks, bridging the gap between simply moving through the world and meaningfully interacting with it.

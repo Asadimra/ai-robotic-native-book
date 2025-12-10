@@ -4,4 +4,87 @@ title: "Testing and Debugging"
 sidebar_label: "Testing and Debugging"
 ---
 
-This lesson will cover Testing and Debugging.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Structure your project using modular ROS 2 packages.
+- Understand the importance of simulation for iterative testing and development.
+- Describe the process of integrating perception and control modules.
+
+## Using ROS 2 Modules for Implementation
+
+As your system architecture diagram shows, your project consists of several independent software components. The best way to organize this in code is by using **ROS 2 packages**. Each major component in your architecture diagram should correspond to its own ROS 2 package.
+
+For our Fetch-Bot example:
+-   `object_detector` package: Contains the node responsible for finding the object in camera images.
+-   `navigation_controller` package: Contains the nodes responsible for taking an object's location and calculating a navigation goal.
+-   `robot_description` package: Contains the URDF/SDF files that model your robot.
+
+This modular approach allows you to:
+-   **Work in parallel:** If you're on a team, different members can own and develop different packages simultaneously.
+-   **Test in isolation:** You can test your object detector node without needing the rest of the navigation system to be running.
+-   **Reuse code:** A well-designed package can be reused in future projects.
+
+## Simulation Testing: Your Most Important Tool
+
+As we've emphasized throughout this course, simulation is your best friend during development. It provides a fast, safe, and repeatable environment for testing your code.
+
+**The Iterative Development Cycle:**
+
+1.  **Write Code:** Implement a new feature or fix a bug in one of your ROS 2 nodes.
+2.  **Compile:** Build your ROS 2 workspace using `colcon build`.
+3.  **Test in Simulation:**
+    -   Launch your simulator (e.g., Gazebo) with your robot model.
+    -   Run your newly compiled ROS 2 node(s).
+    -   Use tools like `rqt_graph` and `ros2 topic echo` to verify that the nodes are communicating correctly.
+    -   Observe the robot's behavior in the simulation. Does it do what you expect?
+4.  **Debug and Refine:** If it doesn't work, analyze the problem, go back to step 1, and repeat.
+
+```
++----------------+
+|  1. Write Code |
++----------------+
+       |
+       v
++----------------+
+|  2. Compile    |
++----------------+
+       |
+       v
++----------------+      +------------------+
+|  3. Test in Sim|----->|  Did it work?    |
++----------------+      +------------------+
+       ^                      | (No)
+       | (Yes)                |
+       v                      |
++----------------+      +-----v----------+
+|  Move to Next  |<-----|  4. Debug Code |
+|  Feature       |      +----------------+
++----------------+
+```
+You should spend the vast majority of your development time in this simulation loop. Only move to testing on the physical robot when you are confident that your code is working correctly and safely in simulation.
+
+## Integrating Perception and Control
+
+The core of your autonomous system is the connection between **perception** (sensing and understanding) and **control** (acting). This integration point is where the robot's intelligence truly emerges.
+
+**The Process:**
+
+1.  **Develop and Test Perception Separately:**
+    -   Work on your object detection node in isolation.
+    -   Feed it pre-recorded images or use a live camera feed.
+    -   Use `ros2 topic echo` or Rviz to check if its output (e.g., the detected object's coordinates) is accurate.
+
+2.  **Develop and Test Control Separately:**
+    -   Work on your navigation or motor control nodes.
+    -   Manually publish "fake" goal messages to the control node's input topic to make sure it moves the robot as expected.
+
+3.  **Integrate:**
+    -   Connect the output topic of your perception node to the input topic of your control node.
+    -   This is the moment of truth! When your perception node detects an object, it should now automatically trigger a corresponding action from your control node.
+
+This step-by-step integration process makes debugging much easier. If the integrated system doesn't work, you can be more confident about where the problem lies because you've already tested each component in isolation.
+
+## Summary
+
+In this lesson, we outlined a practical workflow for project implementation. We emphasized the importance of organizing your code into modular **ROS 2 packages**. We detailed the iterative development cycle of **coding, compiling, and testing in simulation**, which should form the core of your development process. Finally, we discussed a methodical approach to **integrating perception and control modules**, by testing them in isolation before connecting them, which simplifies debugging and leads to a more robust final system.

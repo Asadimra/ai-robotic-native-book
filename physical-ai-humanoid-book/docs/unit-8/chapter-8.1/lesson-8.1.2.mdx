@@ -1,7 +1,88 @@
 ---
 id: defining-project-goals-and-scope
 title: "Defining Project Goals and Scope"
-sidebar_label: "Defining Project Goals and Scope"
+sidebar_label: "Defining Goals & Scope"
 ---
 
-This lesson will cover Defining Project Goals and Scope.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Define clear and measurable goals for your robotics project.
+- Write specific project requirements.
+- Identify and understand the constraints that will affect your project.
+
+## From Idea to Plan: Defining Your Project
+
+Once you have a general idea for your capstone project, the next step is to translate that idea into a concrete, well-defined plan. This involves setting clear goals, writing down specific requirements, and acknowledging your constraints. This process is crucial for keeping your project focused and on track.
+
+## Defining Goals and Outcomes
+
+A **goal** is a high-level statement of what you want to achieve. An **outcome** is a specific, measurable result that demonstrates you have achieved your goal.
+
+-   **Vague Goal:** "Build a cool navigation robot."
+-   **Clear Goal:** "Design a wheeled robot that can autonomously navigate from a start point to a goal point in a simulated room while avoiding obstacles."
+    -   **Measurable Outcome:** The robot can successfully navigate between three different sets of start/goal points in under two minutes each, without colliding with any of the five obstacles placed in the room.
+
+When defining your goals, think **SMART**:
+-   **S**pecific: What exactly do you want to accomplish?
+-   **M**easurable: How will you know when you've succeeded?
+-   **A**chievable: Is this realistic with your skills and resources?
+-   **R**elevant: Does this align with the course objectives?
+-   **T**ime-bound: Can you accomplish this within the project timeframe?
+
+## Writing Project Requirements
+
+**Requirements** are detailed, specific statements that describe what your project *must* do. They break down your high-level goals into concrete functionalities.
+
+There are two main types of requirements:
+
+### 1. Functional Requirements
+
+These define the specific behaviors and functions of your system. They describe *what* the system does.
+-   **Example:** "The robot *shall* be able to detect an obstacle within 0.5 meters of its front sensor."
+-   **Example:** "The system *shall* accept natural language commands like 'move forward' and 'stop'."
+-   **Example:** "The robotic arm *shall* be able to pick up a 5cm plastic cube."
+
+### 2. Non-Functional Requirements
+
+These define the qualities and constraints of the system. They describe *how well* the system performs its functions.
+-   **Example (Performance):** "The robot *shall* process a camera image in under 100 milliseconds."
+-   **Example (Reliability):** "The navigation algorithm *shall* succeed in 90% of test runs."
+-   **Example (Usability):** "A new user *shall* be able to issue a successful voice command within one minute of instruction."
+
+```
++--------------------------+
+|      High-Level Goal     |
+| (e.g., Navigate a room)  |
++--------------------------+
+            |
+            | (is broken down into)
+            v
++--------------------------+
+|  Functional Requirements |
+| - Detect obstacles       |
+| - Follow a path          |
+| - Stop at goal           |
++--------------------------+
+| Non-Functional Reqs.     |
+| - Success rate > 90%     |
+| - Avoids all collisions  |
++--------------------------+
+```
+
+## Understanding Constraints
+
+**Constraints** are limitations or restrictions that you must work within. Identifying your constraints early is crucial for setting realistic goals.
+
+Common project constraints include:
+-   **Time:** The project deadline. This is usually the biggest constraint.
+-   **Budget:** The amount of money you can spend on hardware and components.
+-   **Hardware:** The specific robot, sensors, or computer you have access to. You can't plan to use a high-end LiDAR if you only have a simple ultrasonic sensor.
+-   **Software:** The required operating system or software frameworks (e.g., you must use ROS 2).
+-   **Knowledge:** Your current skill set. While you will learn a lot, you may need to choose simpler approaches if some technologies are completely new to you.
+
+Being honest about your constraints will help you define a project scope that is both challenging and achievable.
+
+## Summary
+
+In this lesson, we learned how to bring structure to a project idea. We focused on setting **clear and measurable goals** and defining specific, verifiable **project requirements** (both functional and non-functional). We also emphasized the importance of identifying and acknowledging **project constraints** like time, budget, and available hardware. This crucial planning stage transforms a vague concept into a focused, actionable plan, paving the way for successful project execution.

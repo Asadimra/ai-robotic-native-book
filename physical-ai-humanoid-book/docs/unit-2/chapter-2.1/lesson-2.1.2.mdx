@@ -1,7 +1,81 @@
 ---
 id: core-concepts-nodes-topics-services-actions
 title: "Core Concepts: Nodes, Topics, Services, Actions"
-sidebar_label: "Core Concepts: Nodes, Topics, Services, Actions"
+sidebar_label: "Core Concepts (Part 1)"
 ---
 
-This lesson will cover Core Concepts: Nodes, Topics, Services, Actions.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Understand the primary motivations and improvements of ROS 2 compared to ROS 1.
+- Define what a ROS 2 node is and its role in a robotic system.
+- Explain the concept of ROS 2 topics and message passing.
+- Differentiate between publishers and subscribers and describe their interaction using text diagrams.
+
+## The Evolution: From ROS 1 to ROS 2
+
+ROS 1, released in 2007, revolutionized robotics development, but as robotics evolved, certain limitations became apparent, especially concerning embedded systems, multi-robot coordination, and real-time performance. ROS 2 was developed to address these challenges with a re-architected core.
+
+**Key improvements in ROS 2:**
+-   **Distributed Data Service (DDS):** ROS 2 uses DDS as its communication layer, providing better Quality of Service (QoS) settings, enhanced security, and native support for discovery in distributed environments.
+-   **Real-time support:** Designed to better accommodate real-time operating systems (RTOS), crucial for applications requiring precise timing.
+-   **Multi-robot systems:** Easier to manage and scale across multiple robots.
+-   **Embedded systems:** More efficient for resource-constrained hardware.
+-   **Security:** Built-in security features for communication.
+
+## Core Concepts of ROS 2
+
+ROS 2 provides several fundamental concepts that form the backbone of robot software architecture.
+
+### Nodes: The Building Blocks
+
+A **node** is an executable process that performs computations. In ROS 2, every functional component of your robot software (e.g., a camera driver, a motor controller, a navigation algorithm) is typically encapsulated within its own node. This modularity allows for:
+-   **Isolation:** If one node crashes, it ideally doesn't bring down the entire system.
+-   **Parallelism:** Nodes can run concurrently, even on different machines.
+-   **Reusability:** Nodes can be developed and tested independently and reused in various projects.
+
+```
++------------------+     +------------------+     +------------------+
+|  Camera Node     |     |  Motor Control   |     |  Navigation      |
+| (Perception)     |     | (Actuation)      |     | (Decision-Making)|
++------------------+     +------------------+     +------------------+
+```
+
+### Topics: Asynchronous Data Streaming
+
+**Topics** are the most common way for nodes to exchange data in ROS 2. They provide a mechanism for asynchronous, many-to-many communication using a **publish/subscribe** model.
+
+-   **Publisher:** A node that sends messages to a topic.
+-   **Subscriber:** A node that receives messages from a topic.
+
+When a node publishes a message to a topic, any node subscribed to that topic will receive a copy of the message. This is ideal for streaming data, such as sensor readings (e.g., camera images, LiDAR scans) or continuous robot states (e.g., odometry).
+
+**Example: A Robot Sending Odometry Data**
+
+```
++---------------+        +------------------+        +---------------+
+|               |        |                  |        |               |
+| Odometry Node |------->| /robot/odom      |------->| Visualization |
+| (Publisher)   |  (Message: Robot Pose)   |        | Node          |
+|               |        | (Topic)          |        | (Subscriber)  |
++---------------+        +------------------+        +---------------+
+        |                                                    ^
+        |                                                    |
+        |----------------------------------------------------|
+                                                             |
+                                                       +---------------+
+                                                       |               |
+                                                       | Navigation    |
+                                                       | Node          |
+                                                       | (Subscriber)  |
+                                                       +---------------+
+```
+In this diagram, the "Odometry Node" publishes the robot's pose to the `/robot/odom` topic. Both the "Visualization Node" and the "Navigation Node" subscribe to this topic to receive the robot's current position and orientation.
+
+### Messages: The Data Format
+
+**Messages** are structured data types used to send information over topics, services, and actions. Each message has a predefined type (e.g., `sensor_msgs/msg/Image`, `geometry_msgs/msg/Twist`). This ensures that all nodes communicating via a specific topic understand the format of the data being exchanged. Messages are defined in `.msg` files and automatically generate code in various programming languages.
+
+## Summary
+
+This lesson introduced the core differences between ROS 1 and ROS 2, emphasizing ROS 2's advancements in distributed communication and real-time capabilities. We then delved into fundamental ROS 2 concepts: **nodes** as modular computational units and **topics** for asynchronous data streaming using the **publish/subscribe** model. Understanding these concepts is vital for building any ROS 2-based robotic system, forming the basis for how different parts of a robot's software communicate and cooperate.

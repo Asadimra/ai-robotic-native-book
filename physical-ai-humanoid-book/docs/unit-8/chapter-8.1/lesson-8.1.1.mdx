@@ -1,7 +1,73 @@
 ---
 id: choosing-a-capstone-project
 title: "Choosing a Capstone Project"
-sidebar_label: "Choosing a Capstone Project"
+sidebar_label: "Choosing a Project"
 ---
 
-This lesson will cover Choosing a Capstone Project.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Understand the purpose and scope of a capstone project in robotics.
+- Identify criteria for selecting a suitable and achievable project topic.
+- Brainstorm potential project ideas based on your interests and available resources.
+
+## Introduction: What is a Capstone Project?
+
+Welcome to the Capstone Project unit! This is where you get to apply everything you've learned throughout this course—from ROS 2 and simulation to manipulation and AI—to a single, comprehensive project. A **capstone project** is a culminating experience that allows you to tackle a challenging problem, showcase your skills, and build something you can be proud of.
+
+The goal is not to solve a problem that no one has ever solved before, but to demonstrate your ability to design, implement, and evaluate a complete robotic system. This is your chance to be creative, solve problems, and experience the full robotics development lifecycle.
+
+## How to Choose a Robotics Problem
+
+Choosing the right project is the most critical first step. A good project is one that is both **interesting** to you and **achievable** within the given timeframe and resources.
+
+### 1. Start with Your Interests
+
+What part of this course did you find most exciting?
+-   **Locomotion:** Are you fascinated by how humanoids walk and balance?
+-   **Manipulation:** Do you want to build a robot that can interact with objects?
+-   **Perception:** Are you interested in using cameras and AI to help a robot "see"?
+-   **Human-Robot Interaction:** Do you want to build a robot that people can talk to and command?
+
+Your passion for the topic will be the fuel that drives you through the challenges ahead.
+
+### 2. Consider the Scope and Constraints
+
+It's easy to dream big, but you must be realistic about what you can achieve.
+-   **Time:** You have a limited amount of time. Choose a problem that can be broken down into manageable weekly goals.
+-   **Resources:** What hardware do you have access to? A physical robot? A powerful computer for simulation? If you don't have access to advanced hardware, a simulation-only project is a perfectly valid and challenging option.
+-   **Complexity:** A common pitfall is choosing a project that is too complex. It's better to successfully complete a simple, well-defined project than to fail at an overly ambitious one. Start with a Minimum Viable Product (MVP) and add features if you have time.
+
+```
++--------------------+
+|   Project Idea     |
++--------------------+
+         |
+         |
++--------v--------+   Is it interesting?
+|    Interest     |----------------------> [Yes/No]
++-----------------+
+         |
+         |
++--------v--------+   Is it achievable?
+|   Feasibility   |----------------------> [Yes/No]
+| (Time, Resources)|
++-----------------+
+```
+
+### 3. Example Project Ideas
+
+Here are a few ideas, ranging from simulation-only to those requiring some hardware, to get you thinking.
+
+-   **Simulation-Only Projects:**
+    -   **Automated Warehouse Picker:** In a Gazebo or Isaac Sim environment, create a mobile robot that can navigate to a shelf, identify a specific object (e.g., based on color or shape), and pick it up using a robotic arm.
+    -   **Humanoid Obstacle Course:** Design a simulation environment with various obstacles (e.g., stairs, narrow gaps, uneven terrain) and develop a control algorithm to guide a humanoid robot through it.
+    -   **Conversational Assistant:** Connect a simulated robot arm to an LLM. Allow a user to give natural language commands (e.g., "stack the red block on the blue one") and have the robot execute them in the simulation.
+
+-   **Hardware-Light Projects (using a webcam, simple motors, etc.):**
+    -   **Vision-Controlled Robotic Arm:** Build a simple 2- or 3-DoF robotic arm and use a webcam to detect an object. Write a program that guides the arm to point at or touch the detected object.
+    -   **Voice-Activated Rover:** Create a simple wheeled robot and use a microphone and a Speech-to-Text service to allow voice commands like "move forward," "stop," and "turn left."
+
+## Summary
+
+In this lesson, we introduced the **capstone project** as your opportunity to synthesize and apply your robotics knowledge. We discussed the critical process of **choosing a project**, emphasizing the need to balance your personal interests with the realistic constraints of time and resources. Finally, we brainstormed several **example project ideas** to inspire you. The key to a successful capstone is selecting a well-defined problem that excites you and that you can realistically solve.

@@ -1,7 +1,87 @@
 ---
 id: setting-up-a-ros-2-workspace
 title: "Setting up a ROS 2 Workspace"
-sidebar_label: "Setting up a ROS 2 Workspace"
+sidebar_label: "Core Concepts (Part 2)"
 ---
 
-This lesson will cover Setting up a ROS 2 Workspace.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Explain the purpose and usage of ROS 2 services for synchronous communication.
+- Describe ROS 2 actions for long-running, preemptable tasks.
+- Understand the concept of the ROS 2 graph and how nodes interact.
+- Grasp the role of DDS (Data Distribution Service) in ROS 2's communication architecture.
+
+## Services: Synchronous Request/Response
+
+While topics are great for continuous, one-way data streams, sometimes you need a direct, synchronous request-response mechanism. This is where **services** come in. A service allows a client node to send a request to a server node and wait for a response. This is useful for tasks that require a specific action to be performed and a result to be returned immediately, such as "get current robot status" or "trigger a specific manipulation routine."
+
+-   **Service Server:** A node that offers a service and processes requests.
+-   **Service Client:** A node that calls a service and waits for a response.
+
+```
++---------------+        +------------------+        +---------------+
+|               |        |                  |        |               |
+| Client Node   |------->| /robot/get_status|------->| Server Node   |
+| (Requests)    |  (Request: "Status?")    |        | (Provides Svc)|
+|               |        | (Service)        |        |               |
+|               |<-------|                  |<-------|               |
+|               |  (Response: "OK, Moving")|        |               |
++---------------+        +------------------+        +---------------+
+```
+
+## Actions: Long-Running and Preemptable Tasks
+
+**Actions** are designed for long-running tasks that might take a significant amount of time to complete and for which the client might want feedback on the progress, or even the ability to cancel (preempt) the task. Actions are built upon services and topics.
+
+An action communication involves three parts:
+1.  **Goal:** The client sends a request to perform a task.
+2.  **Feedback:** The server continuously sends updates on the task's progress.
+3.  **Result:** The server sends the final outcome of the task.
+
+**Example: Navigating to a Goal Location**
+
+```
++---------------+      Goal     +------------------+      Goal     +---------------+
+|               | -------------> |                  | -------------> |               |
+| Client Node   |                | Action Server    |                | Navigation    |
+| (Requests Nav)| <------------- | (Processes Goal) | <------------- | Node          |
+|               |     Feedback   |                  |     Feedback   | (Executes Nav)|
+|               | <------------- |                  | <------------- |               |
+|               |     Result     |                  |     Result     |               |
++---------------+      <---------+------------------+      <---------+---------------+
+```
+If a client node asks a robot to navigate to a far-off location, the robot can provide continuous feedback on its current position and progress. If a new, more urgent task arises, the client can send a preemption request to cancel the current navigation.
+
+## The ROS 2 Graph
+
+The **ROS 2 graph** is a logical representation of the connections and communication pathways between all the nodes in a ROS 2 system. It shows how data flows, which nodes are publishing to which topics, which nodes are calling which services, and which nodes are interacting via actions. Tools like `rqt_graph` can visualize this graph, which is invaluable for understanding, debugging, and monitoring complex robot applications.
+
+```
+      +-------------+        +------------+
+      |  Camera Node|------->| /image_raw |<-------| Image Proc |
+      +-------------+        +------------+        +------------+
+                                   |
+                                   V
+      +-------------+        +------------+
+      |  Lidar Node |------->| /scan      |<-------| Nav Stack  |
+      +-------------+        +------------+        +------------+
+                                   |
+                                   V
+      +-------------+        +------------+
+      |  Motor Ctrl |<-------| /cmd_vel   |<-------|
+      +-------------+        +------------+
+```
+
+## DDS: The Backbone of ROS 2 Communication
+
+Underneath all ROS 2 communication (topics, services, actions) lies the **Data Distribution Service (DDS)**. DDS is an open international standard for publish-subscribe communication for real-time systems. ROS 2 leverages DDS for several key advantages:
+
+-   **Decentralized Architecture:** DDS enables peer-to-peer communication directly between nodes, rather than relying on a central master (like ROS 1's `roscore`). This improves robustness and scalability.
+-   **Quality of Service (QoS):** DDS allows fine-grained control over communication parameters, such as reliability, durability, and latency budgets. This is critical for different types of robotic data (e.g., a high-priority emergency stop signal needs different QoS than a low-priority debug log).
+-   **Discovery:** DDS automatically discovers participants in the network, allowing ROS 2 nodes to find each other without manual configuration.
+-   **Interoperability:** Being an open standard, DDS can enable interoperability with other non-ROS 2 systems that also use DDS.
+
+## Summary
+
+This lesson expanded on ROS 2's core communication mechanisms, detailing **services** for synchronous request-response patterns and **actions** for managing long-running, preemptable tasks with feedback. We introduced the **ROS 2 graph** as a visual representation of system communication and highlighted the foundational role of **DDS (Data Distribution Service)** in enabling ROS 2's decentralized, real-time, and robust communication architecture. With a grasp of nodes, topics, services, actions, and DDS, you now have a comprehensive understanding of how ROS 2 facilitates the orchestration of complex Physical AI and humanoid robotics systems.

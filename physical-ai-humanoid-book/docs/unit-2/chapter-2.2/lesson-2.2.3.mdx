@@ -4,4 +4,234 @@ title: "Launching and Running a ROS 2 System"
 sidebar_label: "Launching and Running a ROS 2 System"
 ---
 
-This lesson will cover Launching and Running a ROS 2 System.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Write a simple Python publisher node in ROS 2.
+- Write a simple Python subscriber node in ROS 2.
+- Compile and run ROS 2 nodes within a package.
+- Verify node communication using ROS 2 command-line tools.
+
+## Writing a Simple Publisher Node (Python)
+
+Let's create a node that publishes "Hello, ROS 2!" messages to a topic.
+
+1.  **Create a Python file:** Inside your `my_robot_controller` package, create a directory `my_robot_controller/` for your Python modules and then a file named `publisher_member_function.py`.
+
+    ```bash
+    mkdir -p ~/ros2_ws/src/my_robot_controller/my_robot_controller
+    touch ~/ros2_ws/src/my_robot_controller/my_robot_controller/publisher_member_function.py
+    ```
+
+2.  **Add the Python code:**
+
+    ```python
+    # publisher_member_function.py
+    import rclpy
+from rclpy.node import Node
+from std_msgs.msg import String # We'll use the standard String message type
+
+class MinimalPublisher(Node):
+
+    def __init__(self):
+        super().__init__('minimal_publisher')
+        # Create a publisher that sends String messages to the 'topic' topic
+        # The queue_size is 10
+        self.publisher_ = self.create_publisher(String, 'topic', 10)
+        self.i = 0
+        # Create a timer to call the timer_callback function every 0.5 seconds
+        timer_period = 0.5  # seconds
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+        self.get_logger().info("MinimalPublisher node started, publishing to 'topic' every {} seconds.".format(timer_period))
+
+    def timer_callback(self):
+        msg = String()
+        msg.data = 'Hello, ROS 2! {}'.format(self.i)
+        self.publisher_.publish(msg)
+        self.get_logger().info('Publishing: "{}"'.format(msg.data))
+        self.i += 1
+
+def main(args=None):
+    rclpy.init(args=args) # Initialize ROS 2
+
+    minimal_publisher = MinimalPublisher() # Create our publisher node
+
+    rclpy.spin(minimal_publisher) # Keep the node alive until it's explicitly shut down
+
+    # Destroy the node explicitly
+    # (optional - otherwise it will be done automatically
+    # when the garbage collector destroys the node object)
+    minimal_publisher.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+    ```
+
+3.  **Update `setup.py`:** Add an entry point to your `setup.py` file so ROS 2 knows how to run your node.
+
+    ```python
+    # ~/ros2_ws/src/my_robot_controller/setup.py
+    from setuptools import find_packages, setup
+
+    package_name = 'my_robot_controller'
+
+    setup(
+        name=package_name,
+        version='0.0.0',
+        packages=find_packages(exclude=['test']),
+        data_files=[
+            ('share/' + package_name, ['package.xml']),
+            ('share/' + package_name + '/resource', ['resource/' + package_name]),
+        ],
+        install_requires=['setuptools'],
+        zip_safe=True,
+        maintainer='your_name',
+        maintainer_email='your_email@example.com',
+        description='A minimal ROS 2 robot controller package',
+        license='Apache-2.0',
+        tests_require=['pytest'],
+        entry_points={
+            'console_scripts': [
+                'talker = my_robot_controller.publisher_member_function:main',
+            ],
+        },
+    )
+    ```
+
+## Writing a Simple Subscriber Node (Python)
+
+Next, let's create a node that subscribes to the messages published by our `MinimalPublisher`.
+
+1.  **Create a Python file:** In the same `my_robot_controller/my_robot_controller` directory, create a file named `subscriber_member_function.py`.
+
+    ```bash
+    touch ~/ros2_ws/src/my_robot_controller/my_robot_controller/subscriber_member_function.py
+    ```
+
+2.  **Add the Python code:**
+
+    ```python
+    # subscriber_member_function.py
+    import rclpy
+from rclpy.node import Node
+from std_msgs.msg import String # We'll use the standard String message type
+
+class MinimalSubscriber(Node):
+
+    def __init__(self):
+        super().__init__('minimal_subscriber')
+        # Create a subscription that listens for String messages on the 'topic' topic
+        # When a message arrives, call the listener_callback function
+        self.subscription = self.create_subscription(
+            String,
+            'topic',
+            self.listener_callback,
+            10)
+        self.subscription # prevent unused variable warning
+        self.get_logger().info("MinimalSubscriber node started, subscribing to 'topic'.")
+
+    def listener_callback(self, msg):
+        self.get_logger().info('I heard: "{}"'.format(msg.data))
+
+def main(args=None):
+    rclpy.init(args=args) # Initialize ROS 2
+
+    minimal_subscriber = MinimalSubscriber() # Create our subscriber node
+
+    rclpy.spin(minimal_subscriber) # Keep the node alive
+
+    # Destroy the node explicitly
+    minimal_subscriber.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+    ```
+
+3.  **Update `setup.py` (again):** Add an entry point for your subscriber node.
+
+    ```python
+    # ~/ros2_ws/src/my_robot_controller/setup.py - updated entry_points
+    from setuptools import find_packages, setup
+
+    package_name = 'my_robot_controller'
+
+    setup(
+        name=package_name,
+        version='0.0.0',
+        packages=find_packages(exclude=['test']),
+        data_files=[
+            ('share/' + package_name, ['package.xml']),
+            ('share/' + package_name + '/resource', ['resource/' + package_name]),
+        ],
+        install_requires=['setuptools'],
+        zip_safe=True,
+        maintainer='your_name',
+        maintainer_email='your_email@example.com',
+        description='A minimal ROS 2 robot controller package',
+        license='Apache-2.0',
+        tests_require=['pytest'],
+        entry_points={
+            'console_scripts': [
+                'talker = my_robot_controller.publisher_member_function:main',
+                'listener = my_robot_controller.subscriber_member_function:main', # New entry point
+            ],
+        },
+    )
+    ```
+
+## Hands-On Practice Exercise: Run the Talker and Listener
+
+1.  **Build your workspace:**
+    ```bash
+    cd ~/ros2_ws
+    colcon build --packages-select my_robot_controller
+    ```
+
+2.  **Source your workspace:** You need to source your workspace to make your new executables available to ROS 2.
+    ```bash
+    . install/setup.bash # For Linux/macOS
+    # or
+    # install/setup.ps1 # For Windows (PowerShell)
+    ```
+
+3.  **Run the publisher node (in a new terminal):**
+    ```bash
+    ros2 run my_robot_controller talker
+    ```
+    You should see it start publishing messages like `Publishing: "Hello, ROS 2! 0"`, `Publishing: "Hello, ROS 2! 1"`, etc.
+
+4.  **Run the subscriber node (in another new terminal):**
+    ```bash
+    ros2 run my_robot_controller listener
+    ```
+    You should see it start receiving messages: `I heard: "Hello, ROS 2! 0"`, `I heard: "Hello, ROS 2! 1"`, etc.
+
+5.  **Inspect with ROS 2 CLI tools:**
+    *   **List active nodes:**
+        ```bash
+        ros2 node list
+        ```
+        You should see `/minimal_publisher` and `/minimal_subscriber`.
+    *   **List active topics:**
+        ```bash
+        ros2 topic list
+        ```
+        You should see `/topic`.
+    *   **Echo topic messages:**
+        ```bash
+        ros2 topic echo /topic
+        ```
+        You'll see the messages being published in real-time.
+    *   **View the ROS 2 graph:** (Requires `rqt_graph` installed: `sudo apt install ros-<ros2-distro>-rqt-graph`)
+        ```bash
+        rqt_graph
+        ```
+        This tool will visually show the `minimal_publisher` node publishing to the `/topic` and `minimal_subscriber` subscribing to it.
+
+This exercise demonstrates the fundamental communication between ROS 2 nodes using the publish/subscribe model!
+
+## Summary
+
+In this lesson, we put our knowledge of ROS 2 core concepts into practice. We learned how to write simple Python nodes for both publishing and subscribing to topics, using the `std_msgs/String` message type. We also covered the essential steps of updating `setup.py` and building our package using `colcon build`. Finally, the hands-on exercise guided us through running these nodes and verifying their communication using powerful ROS 2 command-line tools like `ros2 node list`, `ros2 topic list`, `ros2 topic echo`, and `rqt_graph`. You now have a practical understanding of how to create and manage basic communication within a ROS 2 system.

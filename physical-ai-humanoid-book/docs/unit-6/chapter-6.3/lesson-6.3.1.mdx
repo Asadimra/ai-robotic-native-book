@@ -1,7 +1,74 @@
 ---
 id: proprioceptive-sensors-imus-encoders
 title: "Proprioceptive Sensors (IMUs, Encoders)"
-sidebar_label: "Proprioceptive Sensors (IMUs, Encoders)"
+sidebar_label: "Proprioceptive Sensors"
 ---
 
-This lesson will cover Proprioceptive Sensors (IMUs, Encoders).
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Understand the general role of sensors in humanoid robotics.
+- Differentiate between proprioceptive and exteroceptive sensors.
+- Explain the function and importance of Inertial Measurement Units (IMUs) and joint encoders.
+
+## Introduction: The Senses of a Humanoid
+
+In previous chapters, we've discussed how humanoid robots move (locomotion) and interact with objects (manipulation). But none of this is possible without reliable **sensing**. Sensors are the robot's fundamental connection to both its own body and the external world. They provide the raw data that the robot's AI uses for:
+-   **Perception:** Understanding the environment (where are obstacles? what are objects?).
+-   **State Estimation:** Knowing its own position, orientation, and joint angles.
+-   **Interaction:** Feeling contact forces and adjusting behavior accordingly.
+
+Without accurate and timely sensor data, a robot is effectively blind, deaf, and unaware, making intelligent behavior impossible.
+
+Robot sensors are broadly categorized into two types:
+1.  **Proprioceptive Sensors:** Provide information about the robot's *internal* state (e.g., its own joint positions, orientation, forces within its body).
+2.  **Exteroceptive Sensors:** Provide information about the robot's *external* environment (e.g., objects, distances, light levels).
+
+In this lesson, we'll focus on proprioceptive sensors.
+
+## Proprioceptive Sensors: Knowing Oneself
+
+Proprioceptive sensors are critical for a humanoid robot to understand its own body's configuration and motion. This "self-awareness" is fundamental for controlling its movements, maintaining balance, and executing precise manipulations.
+
+### 1. Joint Encoders
+
+**Joint encoders** are arguably the most fundamental proprioceptive sensors. They are typically integrated directly into the robot's motors or joints.
+-   **Function:** They measure the angular position (and sometimes velocity) of each joint.
+-   **How they work:** Most common types are optical encoders, which use a disc with patterns and light sensors to detect rotation.
+-   **Importance:** Without accurate joint angle feedback, the robot cannot precisely control its limbs. This data is fed into the robot's control system and used for forward kinematics to determine the end-effector's position.
+
+```
+       [Motor] ----> [Encoder] ----> (Joint Angle Data)
+         (Drives Joint)  (Measures Rotation)
+```
+
+### 2. Inertial Measurement Units (IMUs)
+
+An **Inertial Measurement Unit (IMU)** is a sensor package that provides data about the robot's orientation, angular velocity, and linear acceleration.
+-   **Components:** IMUs typically contain:
+    -   **Accelerometers:** Measure linear acceleration (how fast the robot is speeding up or slowing down in each direction). They also sense gravity.
+    -   **Gyroscopes:** Measure angular velocity (how fast the robot is rotating around its axes).
+    -   (Sometimes) **Magnetometers:** Sense magnetic fields, helping to provide an absolute orientation reference (like a compass).
+-   **Importance:** IMUs are absolutely crucial for humanoid robots to:
+    -   **Maintain Balance:** By detecting tilts and angular velocities, the robot can quickly react to prevent falls.
+    -   **Estimate Orientation:** Knowing its own orientation in 3D space.
+    -   **Track Motion:** Combining accelerometer and gyroscope data to estimate changes in position.
+
+```
++------------+       +------------+       +------------+
+| Accelerometer|     | Gyroscope  |     | Magnetometer |
++------------+       +------------+       +------------+
+      |                  |                  |
+      v                  v                  v
++-------------------------------------------------+
+|               IMU Fusion Algorithm              |
+| (Estimates Orientation, Angular Vel, Acceleration)|
++-------------------------------------------------+
+      |
+      v
+  (Robot State Data)
+```
+
+## Summary
+
+In this lesson, we established the critical role of **sensors** in enabling intelligent robotic behavior. We introduced the distinction between proprioceptive and exteroceptive sensors, focusing specifically on **proprioceptive sensors** that provide information about the robot's internal state. We then delved into two vital proprioceptive sensors: **joint encoders**, which measure joint angles for precise limb control, and **Inertial Measurement Units (IMUs)**, which provide essential data on orientation and acceleration for balance and motion tracking. These internal "senses" are foundational for a humanoid to effectively control its complex body.

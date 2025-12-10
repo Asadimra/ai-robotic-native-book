@@ -4,4 +4,103 @@ title: "Setting up Unity for Robotics Simulation"
 sidebar_label: "Setting up Unity for Robotics Simulation"
 ---
 
-This lesson will cover Setting up Unity for Robotics Simulation.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Understand the basics of rigid-body dynamics in simulation.
+- Describe how common robot sensors like LiDAR, cameras, and IMUs are simulated in Gazebo.
+- Differentiate between the URDF and SDF robot description formats.
+
+## Rigid-Body Dynamics
+
+While gravity and collisions are fundamental, **rigid-body dynamics** governs *how* objects move in response to forces. A "rigid body" is an idealized object that does not deform. The physics engine simulates its motion by tracking its state, which includes:
+-   **Position and Orientation:** Where the object is and how it's rotated in 3D space.
+-   **Linear and Angular Velocity:** How fast it's moving and spinning.
+
+When a force is applied, the engine uses the object's physical properties—**mass** (resistance to linear acceleration) and **inertia** (resistance to rotational acceleration)—to calculate the resulting change in motion. This is what allows a simulated robot to tip over if it becomes unbalanced or to be pushed by a force.
+
+```
+   (Force Applied) --> [Robot (Rigid Body)] --> (Resulting Linear & Angular Acceleration)
+                         |
+                         V
+                    (Mass, Inertia)
+```
+
+## Simulating Sensors in Gazebo
+
+A key feature of Gazebo is its ability to simulate a wide range of robot sensors. This allows your AI algorithms to receive realistic virtual data, just as they would from physical hardware.
+
+### LiDAR (Light Detection and Ranging)
+
+A simulated LiDAR sensor in Gazebo works by casting out a number of virtual rays and detecting where they intersect with objects in the environment.
+-   It measures the distance to objects in its field of view.
+-   It can be configured to have realistic limitations, such as a maximum range, specific angular resolution, and added noise to mimic real-world sensor imperfections.
+-   The output is typically a point cloud or a laser scan message, which navigation algorithms can use for mapping and obstacle avoidance.
+
+```
+        /
+ [LiDAR]---- (Virtual Ray) --> [Wall] (Collision detected at distance X)
+        \
+```
+
+### Cameras
+
+Gazebo simulates cameras by rendering the scene from the camera's virtual viewpoint.
+-   It can simulate different camera types, resolutions, and frame rates.
+-   It generates image data that can be published to a ROS 2 topic, just like a real camera.
+-   Advanced features can even simulate lens distortion and image noise.
+
+### IMU (Inertial Measurement Unit)
+
+A simulated IMU provides data about the robot's motion.
+-   It directly accesses the physics engine's ground truth data for orientation, angular velocity, and linear acceleration.
+-   To make it realistic, random noise and biases can be added to the output to mimic the behavior of a real, imperfect IMU sensor.
+
+## Describing Your Robot: URDF vs. SDF
+
+To simulate a robot in Gazebo, you must first describe its physical structure in a file. The two most common formats are URDF and SDF.
+
+### URDF (Unified Robot Description Format)
+
+URDF is an XML-based format primarily used within the ROS ecosystem to describe the kinematics and visual appearance of a robot.
+-   **Structure:** It defines a robot as a tree of **links** (the rigid body parts) connected by **joints** (which define how links move relative to each other).
+-   **Focus:** URDF is excellent for describing the structure of a single robot.
+-   **Limitation:** It cannot describe a full environment (like lights, walls, or multiple robots) and has limited support for describing sensor or actuator physics (dynamics). It only describes a kinematic tree, not a full pose graph.
+
+**Simple URDF Structure:**
+```xml
+<robot name="my_robot">
+  <link name="base_link">...</link>
+  <link name="wheel_link">...</link>
+  <joint name="base_to_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_link"/>
+  </joint>
+</robot>
+```
+
+### SDF (Simulation Description Format)
+
+SDF is the native format for Gazebo and is a more comprehensive XML-based format.
+-   **Structure:** SDF can describe everything about a simulation, including robots, lights, physics, sensors, and the environment itself.
+-   **Capabilities:** It can describe multiple robots, non-kinematic-tree structures (like closed loops), and provides detailed options for specifying physical properties (mass, inertia), sensor behaviors, and actuator models.
+
+**Simple SDF Structure:**
+```xml
+<sdf version="1.7">
+  <world name="my_world">
+    <light .../>
+    <model name="my_robot">
+      <link name="base_link">...</link>
+      <link name="wheel_link">...</link>
+      <joint name="base_to_wheel_joint" type="revolute">...</joint>
+    </model>
+  </world>
+</sdf>
+```
+
+**Key Takeaway:** While you can often use a URDF file to spawn a single robot in Gazebo (it gets converted to SDF internally), **SDF** is the more powerful and complete format for defining entire simulation worlds and all their properties.
+
+## Summary
+
+In this lesson, we explored how **rigid-body dynamics** dictates the movement of objects in a simulation based on their mass and inertia. We learned that Gazebo can realistically simulate a variety of crucial robot **sensors**, such as LiDAR, cameras, and IMUs, providing virtual data for AI algorithms. Finally, we distinguished between **URDF**, a ROS-native format for describing a single robot's structure, and **SDF**, Gazebo's comprehensive format for describing an entire simulation environment.

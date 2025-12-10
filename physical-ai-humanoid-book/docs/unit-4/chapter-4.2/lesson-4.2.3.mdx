@@ -4,4 +4,52 @@ title: "Deploying to a Jetson Device"
 sidebar_label: "Deploying to a Jetson Device"
 ---
 
-This lesson will cover Deploying to a Jetson Device.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Identify examples of how Isaac SDK is used in real-world humanoid and mobile robot projects.
+- Understand the practical application of the Isaac ecosystem from development to deployment.
+- Gain insight into a simple hands-on exploration of the Isaac SDK concepts.
+
+## Isaac SDK in Real Humanoid and Mobile Robot Projects
+
+The NVIDIA Isaac SDK is not just for theoretical development; it's a powerful tool actively used in a variety of real-world robotics projects, from research humanoids to industrial mobile robots.
+
+### Humanoid Robotics
+
+-   **Advanced Locomotion:** Research teams are using Isaac SDK with Isaac Gym (for RL training) and Isaac Sim (for high-fidelity validation) to develop and refine complex bipedal locomotion algorithms for humanoid robots. The GPU-accelerated physics and sensor simulations allow for rapid iteration on gaits and balance control that are robust to disturbances.
+    *   **Example:** Training a humanoid to walk across uneven terrain or recover from pushes, initially in simulation and then deploying the learned policies onto a physical platform.
+
+-   **Dexterous Manipulation:** Humanoids performing human-like tasks in unstructured environments require highly dexterous manipulation. Isaac SDK's perception GEMs (e.g., for object detection, pose estimation) coupled with planning algorithms enable humanoids to perceive objects accurately and execute precise grasps and manipulations.
+
+### Mobile Robot Projects (e.g., NVIDIA JetBot, Carter)
+
+-   **Autonomous Navigation:** For mobile robots operating in dynamic environments, Isaac SDK provides building blocks for:
+    -   **Mapping:** Creating maps of the environment (SLAM - Simultaneous Localization and Mapping).
+    -   **Localization:** Knowing the robot's precise position within that map.
+    -   **Path Planning:** Generating safe and efficient routes.
+    -   **Obstacle Avoidance:** Reacting to unexpected obstacles in real-time.
+    These are often deployed on NVIDIA Jetson embedded computers, which are powered by NVIDIA GPUs.
+
+-   **Perception for Logistics:** In warehouse or factory settings, mobile robots need to identify, track, and interact with inventory. Isaac SDK's vision capabilities are used to enable these robots to accurately perceive their surroundings, locate items, and ensure efficient operation.
+    *   **Example:** NVIDIA's Carter robot platform, an autonomous mobile robot reference design, heavily utilizes the Isaac SDK for its navigation, perception, and manipulation capabilities in logistics settings.
+
+## Short Practice Exercise: Exploring an Isaac SDK Sample
+
+While setting up a full Isaac SDK development environment is beyond the scope of this lesson, you can explore the concepts by looking at some of the provided sample applications (once you have access to the SDK).
+
+**Task:**
+1.  **Obtain the Isaac SDK:** Download and install the NVIDIA Isaac SDK (requires an NVIDIA developer account).
+2.  **Browse Sample Applications:** Navigate to the `sdk/apps` directory within your Isaac SDK installation.
+3.  **Inspect a Simple App:** Choose a basic application, for example, a `stereo_depth` app (for stereo camera processing) or a simple navigation app.
+    -   Examine its `graph` file (often an `.json` or `.graph` file). This file visually represents the interconnected codelets and channels.
+    -   Try to identify:
+        -   Which Codelets are used (e.g., `CameraDriver`, `StereoDepthEstimator`).
+        -   How they are connected (which Codelet's output feeds into another's input).
+        -   Any ROS 2 bridges if present.
+
+This exercise provides a concrete example of how the abstract concepts of apps, nodes, and codelets come together to form a functional robotics application.
+
+## Summary
+
+In this lesson, we concluded our exploration of the NVIDIA Isaac SDK by examining its practical applications in real-world **humanoid and mobile robot projects**. We saw how Isaac's high-performance simulation, GPU-accelerated perception, and modular SDK architecture are instrumental in tackling complex robotics challenges like advanced locomotion, dexterous manipulation, and autonomous navigation. The practice exercise provided guidance on exploring the SDK's sample applications to solidify your understanding. With a grasp of the Isaac ecosystem, you are now equipped to appreciate how this platform is driving the future of intelligent physical systems.

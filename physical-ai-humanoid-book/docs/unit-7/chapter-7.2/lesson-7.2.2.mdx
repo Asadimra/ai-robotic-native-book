@@ -4,4 +4,87 @@ title: "Dialogue Management"
 sidebar_label: "Dialogue Management"
 ---
 
-This lesson will cover Dialogue Management.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Define intent detection and entity extraction.
+- Understand the role of a dialogue manager in a conversational system.
+- Explain the concept of dialogue state and why it is important.
+
+## The Brain of the Conversation: Dialogue Management
+
+Once the Speech-to-Text (STT) system has converted the user's voice into text, the core of the conversational logic begins. This is handled by the **Dialogue Management** system, which is often powered by a Large Language Model (LLM). Its job is to understand the user's goal, keep track of the conversation, and decide what to do or say next.
+
+This process involves two key steps: **intent detection** and **dialogue state tracking**.
+
+## Intent Detection and Entity Extraction
+
+Before the robot can act, it must understand what the user wants.
+-   **Intent Detection:** This is the process of identifying the user's primary goal or intention from their command. Is the user asking a question? Giving a command to move? Requesting an object?
+-   **Entity Extraction:** This is the process of identifying the key pieces of information (entities) associated with that intent.
+
+**Example:**
+-   **User's Text:** `"Can you bring me the small green book from the top shelf?"`
+-   **Intent:** `FetchObject`
+-   **Entities:**
+    -   `object`: "book"
+    -   `attributes`: ["small", "green"]
+    -   `location`: "top shelf"
+
+This structured data is what the LLM generates internally and passes to the robot's planning system.
+
+```
+"Bring me the green book from the top shelf"
+        |
+        v
++-----------------+
+|   LLM / NLU     |
++-----------------+
+        |
+        |  (Parsing)
+        v
++-----------------------------+
+| Intent: FetchObject         |
+| Entities:                   |
+|   - object: "book"          |
+|   - color: "green"          |
+|   - location: "top shelf"   |
++-----------------------------+
+```
+
+## Dialogue Management: Keeping the Conversation Coherent
+
+A conversation is more than just a single command. Users might ask follow-up questions, change their minds, or give ambiguous instructions. The **dialogue manager** is responsible for maintaining the context of the conversation and ensuring the interaction feels natural and coherent.
+
+### Dialogue State Tracking
+
+To manage a conversation, the system must keep track of the **dialogue state**. The state includes all the relevant information gathered so far, such as:
+-   The user's previous commands.
+-   The robot's previous responses and actions.
+-   Any information the robot has learned (e.g., the user's preferences).
+-   Any ambiguities that need to be resolved.
+
+**Example Conversation Flow:**
+
+1.  **User:** `"Get me the cup."`
+    -   **Dialogue Manager:** *Detects ambiguity. My sensors see two cups (a red one and a blue one).*
+2.  **Robot (TTS):** `"I see two cups. Which one would you like?"`
+    -   **Dialogue Manager:** *Updates state: Awaiting user's choice between red and blue cup.*
+3.  **User:** `"The red one."`
+    -   **Dialogue Manager:** *Resolves ambiguity. The goal is now clear: `FetchObject(cup, color: red)`. Updates state: User chose red cup.*
+4.  **Robot:** *(Executes the action to get the red cup)*.
+5.  **Robot (TTS):** `"Here is the red cup."`
+
+Without dialogue state tracking, the robot would not understand that "The red one" refers back to the previous question about the cups.
+
+### Deciding the Next Action
+
+Based on the current dialogue state, the dialogue manager decides what to do next. The next action could be:
+-   **Execute a physical task:** Send a command to the robot's control system.
+-   **Ask a clarifying question:** Generate a text response to resolve ambiguity.
+-   **Answer a question:** Provide information to the user.
+-   **Do nothing:** If the user's input was not a command for the robot.
+
+## Summary
+
+In this lesson, we explored the "brain" of a conversational robot: the **Dialogue Management** system. We learned how it uses **intent detection** and **entity extraction** to understand what the user wants from a specific command. We also examined the crucial role of **dialogue state tracking**, which allows the robot to maintain the context of a conversation, handle ambiguity, and engage in coherent, multi-turn interactions. This system is the bridge between understanding a single line of text and managing a fluid, natural conversation.

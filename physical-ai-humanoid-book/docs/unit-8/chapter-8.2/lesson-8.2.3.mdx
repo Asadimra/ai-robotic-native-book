@@ -1,7 +1,59 @@
 ---
 id: final-demonstration-and-presentation
 title: "Final Demonstration and Presentation"
-sidebar_label: "Final Demonstration and Presentation"
+sidebar_label: "Final Demo & Presentation"
 ---
 
-This lesson will cover Final Demonstration and Presentation.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Understand how to design and run experiments to validate your project.
+- Recognize the importance of documenting your work and results.
+- Prepare a clear and compelling final project demonstration and presentation.
+
+## Running Experiments and Documenting Results
+
+Once your system is working, it's time to formally evaluate its performance. This means moving from informal testing to running structured **experiments**.
+
+### Designing an Experiment
+
+An experiment should be designed to test the measurable outcomes you defined in your project proposal.
+-   **Define Test Cases:** Create a set of specific scenarios to test. For our Fetch-Bot, this could be:
+    -   Case 1: Object in the center of the room.
+    -   Case 2: Object in a corner.
+    -   Case 3: Object partially hidden behind another obstacle.
+-   **Collect Data:** For each test case, run your robot and record the results. Did it succeed? How long did it take? Did it collide with anything?
+-   **Be Scientific:** Run each test case multiple times (e.g., 5-10 times) to get statistically meaningful results, not just a single lucky success.
+
+### Documenting Your Work
+
+Good documentation is crucial. Your future self (and your instructor) will thank you.
+-   **Code Comments:** Your code should be well-commented, especially complex parts, to explain *why* you did something, not just *what* you did.
+-   **README Files:** Each of your ROS 2 packages should have a `README.md` file explaining what the package does, what nodes it contains, and how to run them.
+-   **Final Report:** This is the formal document that summarizes your entire project. It should include:
+    -   Your project goals and requirements.
+    -   Your system architecture diagram.
+    -   A description of your technical approach.
+    -   The results of your experiments (use tables and graphs!).
+    -   A discussion of any challenges you faced and what you learned.
+    -   A conclusion summarizing your achievements.
+
+## Preparing the Final Demonstration
+
+The final demo is your chance to show off all your hard work. A good demo is well-prepared and tells a story.
+
+**Tips for a Great Demo:**
+1.  **Plan Your Narrative:** Don't just show the robot working. Tell the story of your project: What problem did you set out to solve? How did you solve it? What were the results?
+2.  **Keep it Simple and Robust:** Demo your most reliable and impressive feature. It's better to show one feature working perfectly than to show three features that might fail. Have a "safe" and simple scenario ready that you know works every time.
+3.  **Prepare a Backup:** Live demos can and do fail. Have a backup plan! Record a video of your robot working perfectly beforehand. If the live demo fails, you can show the video.
+4.  **Practice, Practice, Practice:** Run through your entire demonstration multiple times, from start to finish. Time yourself. Make sure you can reset the environment quickly if something goes wrong.
+
+**Example Demo Flow:**
+-   (1 min) Briefly introduce the project goal.
+-   (2 min) Show the live demo of the main feature.
+-   (1 min) If the demo was successful, perhaps show a second, more challenging feature (or show a video of it).
+-   (1 min) Briefly summarize your results and what you learned.
+
+## Summary of Chapter 8.2
+
+This chapter has provided a practical guide to **project implementation**. We began by learning how to structure our work by breaking it down into **milestones** and designing a clear **system architecture**. We then detailed the iterative development process centered around **simulation testing** and the methodical **integration of perception and control** modules. Finally, we covered the crucial final steps of running structured **experiments**, **documenting** your results in a final report, and preparing a compelling and robust **final demonstration**. By following this structured process, you have moved from a simple idea to a fully realized and evaluated robotics project, completing the capstone of your learning journey in Physical AI and Humanoid Robotics.

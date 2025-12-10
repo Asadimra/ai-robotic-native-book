@@ -4,4 +4,75 @@ title: "Building a Carter Robot Application"
 sidebar_label: "Building a Carter Robot Application"
 ---
 
-This lesson will cover Building a Carter Robot Application.
+## Learning Objectives
+
+After completing this lesson, you should be able to:
+- Define what the NVIDIA Isaac SDK is and its primary goal.
+- Understand the modular architecture of the Isaac SDK, including apps, nodes, and codelets.
+- Explain how message passing facilitates communication within Isaac applications.
+
+## Introduction to the NVIDIA Isaac SDK
+
+In the previous chapter, we explored Isaac Sim as the powerful simulation environment. Now, we shift our focus to the **NVIDIA Isaac SDK**, which is the software development kit used to build, customize, and deploy AI-powered robot applications. The Isaac SDK provides a robust framework and a collection of tools and libraries to accelerate the development of robotics solutions, bridging the gap between simulation and real-world deployment.
+
+The primary goal of the Isaac SDK is to help developers create intelligent robot behaviors efficiently by providing:
+-   **A modular and flexible architecture:** Break down complex robotic tasks into manageable components.
+-   **GPU-accelerated primitives:** Leverage NVIDIA GPUs for high-performance perception and AI tasks.
+-   **Seamless simulation-to-reality transition:** Develop and test in Isaac Sim, then deploy with confidence.
+-   **Rich library of robotics algorithms (GEMs):** Pre-built solutions for common challenges.
+
+## Architecture: Apps, Nodes, and Codelets
+
+The Isaac SDK employs a graph-based, component-oriented architecture. An application (App) is built by connecting smaller, functional units.
+
+### Apps (Applications)
+
+An **App** is a collection of interconnected nodes and codelets that together form a complete robot behavior or application. Think of it as the entire program that controls your robot's high-level functions, such as "navigate to a goal" or "pick up an object."
+
+### Nodes: Computational Units
+
+A **Node** in the Isaac SDK is a container for one or more **Codelets**. It represents a logical computational unit within the application graph. For example, a "Perception Node" might contain codelets for camera input, object detection, and depth estimation. Nodes help organize and manage the execution of related codelets.
+
+### Codelets: The Atomic Units of Computation
+
+**Codelets** are the fundamental, atomic building blocks of an Isaac SDK application. They are small, self-contained, and highly optimized functions designed to perform a specific task, such as:
+-   Reading sensor data.
+-   Performing a vision processing algorithm.
+-   Controlling a motor.
+-   Executing a navigation planner.
+
+Codelets are typically implemented in C++ for maximum performance, but they can expose Python bindings for higher-level logic.
+
+```
++-------------------------------------------------+
+|             Isaac SDK Application (App)         |
+|                                                 |
+| +-----------------+       +-----------------+   |
+| |                 |       |                 |   |
+| |   Perception    |       |    Navigation   |   |
+| |   Node          |       |    Node         |   |
+| | +-----------+   |       | +-----------+   |   |
+| | | Camera    |   |       | | Path      |   |   |
+| | | Codelet   |---|-------| | Planner   |   |   |
+| | +-----------+   |       | +-----------+   |   |
+| |                 |       |                 |   |
+| +-----------------+       +-----------------+   |
++-------------------------------------------------+
+```
+
+## Message Passing and Communication
+
+Codelets and nodes communicate with each other through a highly efficient **message-passing** system. Data is exchanged via **messages** sent over **channels** (similar to ROS 2 topics, but optimized for in-process and cross-process communication).
+
+-   **Messages:** Structured data packets containing information (e.g., image data, robot pose, control commands).
+-   **Channels:** Named communication conduits that Codelets publish messages to and subscribe from.
+-   **Graph:** The entire application is defined as a directed graph where nodes and codelets are vertices, and channels are edges, indicating the flow of data.
+
+This message-passing architecture enables:
+-   **Decoupling:** Codelets operate independently, only needing to know the message types they consume and produce.
+-   **Asynchronous Processing:** Different parts of the application can run at their own rates, improving overall responsiveness.
+-   **Scalability:** Applications can be distributed across multiple CPU cores or even different computing devices.
+
+## Summary
+
+In this lesson, we introduced the **NVIDIA Isaac SDK** as a powerful toolkit for developing AI-driven robotics applications. We explored its modular architecture, composed of **Apps** (entire applications), **Nodes** (computational units), and **Codelets** (atomic functions). We also understood how these components communicate efficiently through a **message-passing system** over channels, allowing for decoupled, asynchronous, and scalable robot behaviors. This foundational understanding is key to leveraging the Isaac SDK for building advanced Physical AI systems.
