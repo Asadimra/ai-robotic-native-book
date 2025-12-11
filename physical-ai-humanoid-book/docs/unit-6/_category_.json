@@ -1,4 +1,9 @@
 {
   "label": "Unit 6: Humanoid Robotics",
-  "position": 6
+  "position": 6,
+  "link": {
+    "type": "generated-index",
+    "title": "Unit 6 Overview",
+    "description": "An introduction to the fundamentals of humanoid robotics."
+  }
 }

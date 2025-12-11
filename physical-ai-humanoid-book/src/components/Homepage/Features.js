@@ -4,29 +4,29 @@ import styles from './Features.module.css';
 
 const FeatureList = [
   {
-    title: 'Built for Beginners',
+    title: 'Comprehensive Curriculum',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Start your journey into AI and robotics with clear, concise explanations and hands-on examples. No prior expertise required.
+        From the fundamentals of ROS 2 and robot hardware to cutting-edge Vision-Language-Action (VLA) models, our curriculum covers the full spectrum of modern robotics.
       </>
     ),
   },
   {
-    title: 'Focus on Modern Tooling',
+    title: 'Advanced Simulation',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Learn to use industry-standard tools like ROS 2, Gazebo, and Python for building real-world robotic applications.
+        Master industry-standard tools like Gazebo and NVIDIA Isaac Sim to test, train, and deploy robots in high-fidelity, photorealistic virtual environments.
       </>
     ),
   },
   {
-    title: 'Powered by Docusaurus',
+    title: 'AI-Driven Robotics',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can be extended while reusing the same header and footer.
+        Dive into the future of robotics by learning how to integrate Large Language Models (LLMs) for conversational AI and high-level task planning.
       </>
     ),
   },

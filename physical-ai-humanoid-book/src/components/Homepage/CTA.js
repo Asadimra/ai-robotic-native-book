@@ -14,7 +14,7 @@ export default function CTA() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/intro">
+            to="/docs/category/unit-1-introduction-to-physical-ai">
             Explore the Textbook
           </Link>
         </div>

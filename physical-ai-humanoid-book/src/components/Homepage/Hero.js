@@ -12,7 +12,7 @@ export default function Hero() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/category/unit-1-introduction">
+            to="/docs/category/unit-1-introduction-to-physical-ai">
             Get Started
           </Link>
         </div>

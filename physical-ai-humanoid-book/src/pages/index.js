@@ -7,6 +7,7 @@ import Hero from '../components/Homepage/Hero';
 import Features from '../components/Homepage/Features';
 import About from '../components/Homepage/About';
 import Chapters from '../components/Homepage/Chapters';
+import IncompleteChapters from '../components/Homepage/IncompleteChapters';
 import CTA from '../components/Homepage/CTA';
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
         <Features />
         <About />
         <Chapters />
+        <IncompleteChapters />
         <CTA />
       </main>
     </Layout>

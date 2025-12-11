@@ -1,4 +1,9 @@
 {
   "label": "Unit 4: Module 3: NVIDIA Isaac",
-  "position": 4
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "title": "Unit 4 Overview",
+    "description": "An introduction to NVIDIA Isaac for robotics development."
+  }
 }

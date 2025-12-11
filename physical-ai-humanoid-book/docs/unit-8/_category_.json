@@ -1,4 +1,9 @@
 {
   "label": "Unit 8: Capstone Project",
-  "position": 8
+  "position": 8,
+  "link": {
+    "type": "generated-index",
+    "title": "Unit 8 Overview",
+    "description": "Guidance on defining, implementing, and presenting your capstone robotics project."
+  }
 }
